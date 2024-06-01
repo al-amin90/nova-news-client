@@ -3,6 +3,7 @@ import MainLayout from "../Layout/MainLayout";
 import Home from "../Pages/Home/Home/Home";
 import Register from "../Pages/Authontication/Register";
 import Login from "../Pages/Authontication/Login";
+import AddArticles from "../Pages/AddArticles/AddArticles";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/addArticles",
-        element: <p>comeing</p>,
+        element: <AddArticles />,
       },
       {
         path: "/allArticles",

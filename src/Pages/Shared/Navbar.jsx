@@ -1,12 +1,15 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import NavItem from "../../Components/Home/NavItem";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const location = useLocation();
   //   const [cart] = useCart();
   //   const [isAdmin] = useAdmin();
+  const isAdmin = false;
 
   const navLinks = (
     <div className="flex flex-col lg:flex-row items-center text-sm lg:gap-4 uppercase *:cursor-pointer font-semibold">
@@ -15,7 +18,9 @@ const Navbar = () => {
         <NavItem label={"Add Articles"} address="/addArticles"></NavItem>
         <NavItem label={"All Articles"} address="/allArticles"></NavItem>
         <NavItem label={"Subscription"} address="/subscription"></NavItem>
-        <NavItem label={"Dashboard"} address="/dashboard"></NavItem>
+        {isAdmin && (
+          <NavItem label={"Dashboard"} address="/dashboard"></NavItem>
+        )}
         <NavItem label={"My Articles"} address="/myArticles"></NavItem>
         <NavItem
           label={"Premium Articles"}
@@ -37,8 +42,8 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <div className="navbar bg-[#1515157a] md:px-10 text-white fixed z-10">
+    <div className="relative ">
+      <div className={`navbar bg-[#1515157a] md:px-10 text-white fixed z-50`}>
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
