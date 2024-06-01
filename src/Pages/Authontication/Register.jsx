@@ -14,6 +14,8 @@ const Register = () => {
   const { createUser, loading, updateUserProfile, setUser, setLoading, user } =
     useAuth();
   const [isShowed, setIsShowed] = useState(true);
+  const location = useLocation();
+  const from = location?.state || "/";
   const navigate = useNavigate();
   const {
     register,
@@ -40,6 +42,7 @@ const Register = () => {
                 color: "#fff",
               },
             });
+            navigate(from);
           });
         })
         .catch((error) => {

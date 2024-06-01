@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
@@ -15,6 +15,9 @@ const Login = () => {
   const { user, loading, logInUser, setLoading } = useAuth();
   const [isShowed, setIsShowed] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state || "/";
+
   const {
     register,
     handleSubmit,
@@ -34,6 +37,7 @@ const Login = () => {
               color: "#fff",
             },
           });
+          navigate(from);
         })
         .catch((error) => {
           setLoading(false);
@@ -141,7 +145,7 @@ const Login = () => {
                     Or sign in with
                   </p>
                 </div>
-                <SocialMediaLogin />
+                <SocialMediaLogin from={from} />
               </div>
             </div>
 

@@ -10,6 +10,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import useAxiosPublic, { axiosPublic } from "../Hooks/useAxiosPublic";
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
@@ -18,6 +19,7 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiosPublic = useAxiosPublic();
 
   // crate user
   const createUser = (email, password) => {
@@ -50,9 +52,23 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
+
+      if (currentUser?.email) {
+        // get the token from client side
+        axiosPublic.post("/jwt", { email: currentUser?.email }).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+            setLoading(false);
+          }
+        });
+      } else {
+        //   remove token from the client side
+        localStorage.removeItem("access-token");
+        setLoading(false);
+      }
       console.log("currentUser --->", currentUser);
     });
+
     return () => {
       unsubscribe();
     };

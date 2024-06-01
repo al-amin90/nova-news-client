@@ -1,12 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import facebook from "../../assets/authImgs/face.png";
 
-const SocialMediaLogin = () => {
+const SocialMediaLogin = ({ from }) => {
   const { logInWithGoogle } = useAuth();
+  const navigate = useNavigate();
 
   const loginSocial = () => {
-    console.log("clicked");
-    logInWithGoogle();
+    logInWithGoogle().then((result) => {
+      navigate(from);
+    });
   };
 
   return (
