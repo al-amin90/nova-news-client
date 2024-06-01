@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100;200;300;400;500;600;700;800;900&family=Nunito+Sans:opsz,wdth,wght@6..12,75..125,200..1000&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-fire{
+    font-family: "Fira Sans", sans-serif;
+}
+
+.font-nunito{
+    font-family: "Nunito Sans", sans-serif;
+}
