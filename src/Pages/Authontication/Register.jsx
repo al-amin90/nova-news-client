@@ -6,12 +6,13 @@ import registerImg from "../../assets/authImgs/register2.png";
 import { toast } from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import axios from "axios";
-
-const image_hoisting_key = import.meta.env.VITE_IMAGE_HOISTING_KEY;
-const image_hoisting_api = `https://api.imgbb.com/1/upload?key=${image_hoisting_key}`;
+import { SiSpinrilla } from "react-icons/si";
+import useAuth from "../../Hooks/useAuth";
+import { imageUpload } from "../../api/utlils";
 
 const Register = () => {
+  const { createUser, loading, updateUserProfile, setUser, setLoading, user } =
+    useAuth();
   const [isShowed, setIsShowed] = useState(true);
   const navigate = useNavigate();
   const {
@@ -21,14 +22,36 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    // make image url
-    const imageFile = { image: data.image[0] };
-    const { data: image } = await axios.post(image_hoisting_api, imageFile, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
-    console.log(name, email, password, image?.data?.display_url);
+    // console.log(name, email, password, image?.data?.display_url);
+
+    try {
+      // 1.  imageUpload
+      const image_url = await imageUpload(data.image[0]);
+      console.log(image_url);
+
+      // 2. create user
+      createUser(data.email, data.password)
+        .then((result) => {
+          updateUserProfile(data.name, image_url).then(() => {
+            setUser({ ...user, displayName: data.name, photoURL: image_url });
+            toast.success("Register Successfully", {
+              style: {
+                background: "#2B3440",
+                color: "#fff",
+              },
+            });
+          });
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.log(error.message);
+        });
+
+      // 3.user name and photo url in firebase
+    } catch (err) {
+      setLoading(false);
+      console.log(err.message);
+    }
   };
 
   return (
@@ -115,12 +138,12 @@ const Register = () => {
                       />
                       <div
                         onClick={() => setIsShowed(!isShowed)}
-                        className="absolute right-4 text-xl top-4"
+                        className="absolute right-4 text-xl cursor-pointer top-4"
                       >
                         {isShowed ? (
-                          <FaEyeSlash className="text-white"></FaEyeSlash>
+                          <FaEyeSlash className="text-white cursor-pointer"></FaEyeSlash>
                         ) : (
-                          <FaEye className="text-white" />
+                          <FaEye className="text-white cursor-pointer" />
                         )}
                       </div>
                     </fieldset>
@@ -157,9 +180,13 @@ const Register = () => {
                   )}
                   <button
                     type="submit"
-                    className="py-4 w-full px-5 text-lg text-white bg-[#FF2400] rounded-full hover:shadow-xl font-semibold"
+                    className="py-4 w-full px-5 text-lg text-white bg-[#FF2400] rounded-full m-auto hover:shadow-xl font-semibold"
                   >
-                    Register
+                    {loading ? (
+                      <SiSpinrilla className="m-auto animate-spin" />
+                    ) : (
+                      "Register"
+                    )}
                   </button>
                 </form>
 

@@ -8,11 +8,11 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import SocialMediaLogin from "../../Components/Authontication/SocialMediaLogin";
-
-const image_hoisting_key = import.meta.env.VITE_IMAGE_HOISTING_KEY;
-const image_hoisting_api = `https://api.imgbb.com/1/upload?key=${image_hoisting_key}`;
+import useAuth from "../../Hooks/useAuth";
+import { SiSpinrilla } from "react-icons/si";
 
 const Login = () => {
+  const { user, loading, logInUser, setLoading } = useAuth();
   const [isShowed, setIsShowed] = useState(true);
   const navigate = useNavigate();
   const {
@@ -22,14 +22,28 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    // make image url
-    const imageFile = { image: data.image[0] };
-    const { data: image } = await axios.post(image_hoisting_api, imageFile, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
-    console.log(name, email, password, image?.data?.display_url);
+    //   sing in
+    console.log(data.email, data.password);
+    try {
+      logInUser(data.email, data.password)
+        .then((result) => {
+          setLoading(false);
+          toast.success("Login Successfully", {
+            style: {
+              background: "#2B3440",
+              color: "#fff",
+            },
+          });
+        })
+        .catch((error) => {
+          setLoading(false);
+          toast.error(error.message);
+        });
+    } catch (err) {
+      //   console.log(err);
+      toast.error(err.message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -105,7 +119,11 @@ const Login = () => {
                     type="submit"
                     className="py-4 w-full px-5 text-lg text-white bg-[#FF2400] rounded-full hover:shadow-xl font-semibold"
                   >
-                    Log in
+                    {loading ? (
+                      <SiSpinrilla className="m-auto animate-spin" />
+                    ) : (
+                      "Log in"
+                    )}
                   </button>
                 </form>
 

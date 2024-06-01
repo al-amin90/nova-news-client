@@ -1,11 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import NavItem from "../../Components/Home/NavItem";
+import useAuth from "../../Hooks/useAuth";
+import { toast } from "react-hot-toast";
 
 const Navbar = () => {
-  //   const { user, logOut } = useAuth();
+  const { user, logOut } = useAuth();
   //   const [cart] = useCart();
   //   const [isAdmin] = useAdmin();
-  const user = null;
 
   const navLinks = (
     <div className="flex flex-col lg:flex-row items-center text-sm lg:gap-4 uppercase *:cursor-pointer font-semibold">
@@ -26,11 +27,12 @@ const Navbar = () => {
 
   const handleLogOut = () => {
     logOut().then(() => {
-      //   Swal.fire({
-      //     title: "Log Out!",
-      //     text: "Log Out successFully!",
-      //     icon: "success",
-      //   });
+      toast.success("Log Out Successfully", {
+        style: {
+          background: "#2B3440",
+          color: "#fff",
+        },
+      });
     });
   };
 
@@ -78,9 +80,9 @@ const Navbar = () => {
             <>
               <button
                 onClick={handleLogOut}
-                className="font-bold ml-16 mr-4 rounded-sm py-1 px-3 bg-[#ff2c258a] text-white"
+                className="font-bold uppercase text-xs ml-6 mr-5 py-1 md:py-2 rounded-full px-3 md:px-6 bg-[#FF2400] transition-all shadow-md duration-300 border-y border-[#FF664D] hover:bg-[#ff5537] text-white"
               >
-                LogOut
+                Log Out
               </button>
               <div className="avatar">
                 <div className="w-9  rounded-full">

@@ -1,10 +1,18 @@
+import useAuth from "../../Hooks/useAuth";
 import facebook from "../../assets/authImgs/face.png";
 
 const SocialMediaLogin = () => {
+  const { logInWithGoogle } = useAuth();
+
+  const loginSocial = () => {
+    console.log("clicked");
+    logInWithGoogle();
+  };
+
   return (
     <div className="min-w-full flex mt-6 items-center justify-center flex-wrap md:flex-nowrap gap-4 mb-4">
       <button
-        onClick={() => loginSocial(googleWithSingIn)}
+        onClick={() => loginSocial()}
         className=" font-bold shadow-sm p-1 rounded-full bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
       >
         <div className="bg-white p-2 rounded-full">
@@ -29,10 +37,7 @@ const SocialMediaLogin = () => {
         </div>
       </button>
 
-      <button
-        onClick={() => loginSocial(githubWithSingIn)}
-        className=" font-bold shadow-sm p-1 rounded-full bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
-      >
+      <button className=" font-bold shadow-sm p-1 rounded-full bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
         <div className="bg-white p-1 rounded-full">
           <img src={facebook} className="w-10" alt="" />
         </div>
