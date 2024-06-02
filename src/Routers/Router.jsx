@@ -7,6 +7,7 @@ import AddArticles from "../Pages/AddArticles/AddArticles";
 import PrivateRouter from "./PrivateRouter";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
+import AdminRouter from "./AdminRouter";
 
 const router = createBrowserRouter([
   {
@@ -75,7 +76,9 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <PrivateRouter>
-        <Dashboard />
+        <AdminRouter>
+          <Dashboard />
+        </AdminRouter>
       </PrivateRouter>
     ),
     children: [
@@ -85,7 +88,11 @@ const router = createBrowserRouter([
       },
       {
         path: "allusers",
-        element: <ManageUsers />,
+        element: (
+          <AdminRouter>
+            <ManageUsers />
+          </AdminRouter>
+        ),
       },
       {
         path: "manageArticle",

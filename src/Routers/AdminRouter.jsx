@@ -7,18 +7,15 @@ import useRole from "../Hooks/useRole";
 const AdminRouter = ({ children }) => {
   const { user, loading } = useAuth();
   const [isAdmin, isLoading] = useRole();
-  const location = useLocation();
 
-  if (loading) {
+  if (loading || isLoading) {
     return <Loader></Loader>;
   }
 
-  if (user) {
+  if (isAdmin && user) {
     return children;
   }
-  return (
-    <Navigate to="/login" state={location.pathname} replace="true"></Navigate>
-  );
+  return <Navigate to="/" replace="true"></Navigate>;
 };
 
 export default AdminRouter;

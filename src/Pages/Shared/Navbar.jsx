@@ -3,13 +3,12 @@ import NavItem from "../../Components/Home/NavItem";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
+import useRole from "../../Hooks/useRole";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const location = useLocation();
-  //   const [cart] = useCart();
-  //   const [isAdmin] = useAdmin();
-  const isAdmin = true;
+  const [isAdmin, isLoading] = useRole();
 
   const navLinks = (
     <div className="flex flex-col lg:flex-row items-center text-sm lg:gap-4 uppercase *:cursor-pointer font-semibold">

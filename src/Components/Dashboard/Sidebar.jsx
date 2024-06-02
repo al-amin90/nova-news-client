@@ -14,8 +14,6 @@ import { FcAbout } from "react-icons/fc";
 const Sidebar = () => {
   const { logOut } = useAuth();
   const [isActive, setActive] = useState(false);
-  const [role, isLoading] = ["admin", true];
-  console.log(role, isLoading);
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
