@@ -4,6 +4,9 @@ import Home from "../Pages/Home/Home/Home";
 import Register from "../Pages/Authontication/Register";
 import Login from "../Pages/Authontication/Login";
 import AddArticles from "../Pages/AddArticles/AddArticles";
+import PrivateRouter from "./PrivateRouter";
+import Dashboard from "../Pages/Dashboard/Dashboard";
+import ManageUsers from "../Pages/Dashboard/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +19,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/addArticles",
-        element: <AddArticles />,
+        element: (
+          <PrivateRouter>
+            <AddArticles />
+          </PrivateRouter>
+        ),
       },
       {
         path: "/allArticles",
@@ -24,19 +31,35 @@ const router = createBrowserRouter([
       },
       {
         path: "/subscription",
-        element: <p>comeing</p>,
-      },
-      {
-        path: "/dashboard",
-        element: <p>comeing</p>,
+        element: (
+          <PrivateRouter>
+            <p>comeing</p>
+          </PrivateRouter>
+        ),
       },
       {
         path: "/myArticles",
-        element: <p>comeing</p>,
+        element: (
+          <PrivateRouter>
+            <p>comeing</p>
+          </PrivateRouter>
+        ),
       },
       {
         path: "/premiumArticles",
-        element: <p>comeing</p>,
+        element: (
+          <PrivateRouter>
+            <p>comeing</p>
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRouter>
+            <p>comeing</p>
+          </PrivateRouter>
+        ),
       },
       {
         path: "/login",
@@ -45,6 +68,32 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRouter>
+        <Dashboard />
+      </PrivateRouter>
+    ),
+    children: [
+      {
+        index: true,
+        element: <p>About</p>,
+      },
+      {
+        path: "allusers",
+        element: <ManageUsers />,
+      },
+      {
+        path: "manageArticle",
+        element: <p>All Articles</p>,
+      },
+      {
+        path: "addPublisher",
+        element: <p>Add Publisher</p>,
       },
     ],
   },

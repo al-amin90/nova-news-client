@@ -7,6 +7,10 @@ import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { imageUpload } from "../../api/utlils";
+import { useMutation } from "@tanstack/react-query";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { toast } from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const AddArticles = () => {
   const update = false;
@@ -14,11 +18,14 @@ const AddArticles = () => {
   const [loading, setLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
+  const axiosSecure = useAxiosSecure();
 
   const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+    { value: "Namibian", label: "Namibian" },
+    { value: "Ei Pais", label: "Ei Pais" },
+    { value: "The Irish Times", label: "The Irish Times" },
+    { value: "Independent", label: "Independent" },
+    { value: "Toronto Star", label: "Toronto Star" },
   ];
 
   const navigate = useNavigate();
@@ -31,49 +38,75 @@ const AddArticles = () => {
   // handle image
   const handleImage = async (image) => {
     // 1.  imageUpload
-
     const image_url = await imageUpload(image);
     if (image_url) {
+      console.log(image_url);
       setImagePreview(image_url);
     } else {
       setImagePreview("");
     }
   };
 
+  const { mutateAsync } = useMutation({
+    mutationFn: async (article) => {
+      const { data } = await axiosSecure.post("/article", article);
+      return data;
+    },
+    onSuccess: () => {
+      setLoading(false);
+      toast.success("Successful! Wait for the Admin response..");
+      navigate("/");
+    },
+  });
+
+  // add Articles
   const onSubmit = async (data) => {
-    // console.log(name, email, password, image?.data?.display_url);
+    setLoading(true);
 
     try {
       const articleInfo = {
         title: data.title,
         image: imagePreview,
-        publisher: selectedOption,
+        publisher: selectedOption.value,
         tags: data.tags,
         description: data.description,
         isPremium: false,
+        timeStamp: new Date(),
+        status: "pending",
+        author: {
+          name: user?.displayName,
+          email: user?.email,
+          photo: user?.photoURL,
+        },
       };
 
-      console.log(articleInfo);
+      console.table(articleInfo);
+      await mutateAsync(articleInfo);
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   };
 
   return (
-    <div className="">
+    <div className="pb-28">
+      <Helmet>
+        <title> novaNews || Add Articles</title>
+      </Helmet>
+
       {/* top banner component */}
-      <div className="md:h-[50vh] relative h-[400px]">
-        <div className="md:h-[50vh]  h-[400px] object-center" style={{}}>
+      <div className="md:h-[50vh] relative h-[300px]">
+        <div className="md:h-[50vh]  h-[300px] object-center" style={{}}>
           <div className="bg-gradient-to-b from-[#00000000] min-h-full to-[#050505] w-full z-10 absolute"></div>
           <img
-            className="object-cover w-full object-center md:h-[50vh] opacity-100 h-[400px]"
+            className="object-cover w-full object-center md:h-[50vh] opacity-100 h-[300px]"
             src="https://i.ibb.co/80dQ7Zz/typify-demo-software-4.jpg"
             alt=""
           />
         </div>
         <div className="max-w-7xl w-[94%] mx-auto">
-          <div className="absolute  text-white top-1/2 left-1/2 -translate-x-1/2  z-20 ">
-            <div className="text-5xl font-bold">
+          <div className="absolute text-white top-1/2 left-1/2 -translate-x-1/2  z-20 ">
+            <div className="text-2xl md:text-5xl font-bold">
               <h6 className="z-40 relative pl-2 shadow-xl">Add Articles</h6>
               <h6 className="text-transparent px-3 h-4 shadow-md duration-300 border-y border-[#FF664D] -mt-4 -skew-x-[35deg] bg-[#FF2400] w-fit">
                 Add Articless
@@ -85,7 +118,7 @@ const AddArticles = () => {
 
       {/* form add articles */}
       <form
-        className="max-w-7xl w-[70%] mx-auto mt-16"
+        className="max-w-7xl w-[90%] lg:w-[70%] mx-auto mt-16"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col md:flex-row gap-8 ">
@@ -192,6 +225,7 @@ const AddArticles = () => {
 
         <button
           type="submit"
+          disabled={loading}
           className="py-4 w-full px-5 text-lg bg-[#FF2400]/70 mt-8 text-white hover:bg-[#FF2400] rounded-full m-auto hover:shadow-xl font-semibold"
         >
           {loading ? (

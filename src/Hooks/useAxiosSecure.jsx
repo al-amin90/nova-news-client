@@ -7,15 +7,15 @@ export const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-  const { user, logOut } = useAuth();
+  const { user, logOut, setLoading } = useAuth();
   const navigate = useNavigate();
 
   // Add a request interceptor
-  axios.interceptors.request.use(
+  axiosSecure.interceptors.request.use(
     function (config) {
       const token = localStorage.getItem("access-token");
       config.headers.authorization = `Bearer ${token}`;
-      console.log("request stopped by interceptor", token);
+      // console.log("request stopped by interceptor", token);
 
       return config;
     },
@@ -26,15 +26,16 @@ const useAxiosSecure = () => {
   );
 
   // interceptor 401 $ 403
-  axios.interceptors.response.use(
+  axiosSecure.interceptors.response.use(
     function (response) {
       return response;
     },
     async function (error) {
-      const status = error.response.status;
+      const status = error?.response?.status;
       // for 401 & 403 logout the user and move the user to the login
       if (status === 401 || status === 403) {
         await logOut();
+        setLoading(false);
         navigate("/login");
       }
 

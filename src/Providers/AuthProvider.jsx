@@ -28,6 +28,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logInUser = (email, password) => {
+    console.log(email, password);
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -49,8 +50,6 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  // save users
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -60,7 +59,6 @@ const AuthProvider = ({ children }) => {
         axiosPublic.post("/jwt", { email: currentUser?.email }).then((res) => {
           if (res.data.token) {
             localStorage.setItem("access-token", res.data.token);
-            // save current user
             setLoading(false);
           }
         });

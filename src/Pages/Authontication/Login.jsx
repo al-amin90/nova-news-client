@@ -6,7 +6,6 @@ import loginImg from "../../assets/authImgs/login.png";
 import { toast } from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import SocialMediaLogin from "../../Components/Authontication/SocialMediaLogin";
 import useAuth from "../../Hooks/useAuth";
 import { SiSpinrilla } from "react-icons/si";
@@ -38,7 +37,7 @@ const Login = () => {
               color: "#fff",
             },
           });
-          navigate(result.user);
+          navigate(from);
           saveUser(result.user);
         })
         .catch((error) => {

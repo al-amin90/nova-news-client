@@ -9,23 +9,31 @@ const Navbar = () => {
   const location = useLocation();
   //   const [cart] = useCart();
   //   const [isAdmin] = useAdmin();
-  const isAdmin = false;
+  const isAdmin = true;
 
   const navLinks = (
     <div className="flex flex-col lg:flex-row items-center text-sm lg:gap-4 uppercase *:cursor-pointer font-semibold">
       <li>
         <NavItem label={"Home"} address="/"></NavItem>
-        <NavItem label={"Add Articles"} address="/addArticles"></NavItem>
+        {user && (
+          <NavItem label={"Add Articles"} address="/addArticles"></NavItem>
+        )}
         <NavItem label={"All Articles"} address="/allArticles"></NavItem>
-        <NavItem label={"Subscription"} address="/subscription"></NavItem>
+        {user && (
+          <NavItem label={"Subscription"} address="/subscription"></NavItem>
+        )}
         {isAdmin && (
           <NavItem label={"Dashboard"} address="/dashboard"></NavItem>
         )}
-        <NavItem label={"My Articles"} address="/myArticles"></NavItem>
-        <NavItem
-          label={"Premium Articles"}
-          address="/premiumArticles"
-        ></NavItem>
+        {user && (
+          <NavItem label={"My Articles"} address="/myArticles"></NavItem>
+        )}
+        {user && (
+          <NavItem
+            label={"Premium Articles"}
+            address="/premiumArticles"
+          ></NavItem>
+        )}
       </li>
     </div>
   );

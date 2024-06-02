@@ -8,7 +8,7 @@ const image_hoisting_api = `https://api.imgbb.com/1/upload?key=${image_hoisting_
 export const imageUpload = async (image) => {
   const imageFile = { image: image };
 
-  const { data } = await axios.post(image_hoisting_api, imageFile, {
+  const { data } = await axiosPublic.post(image_hoisting_api, imageFile, {
     headers: {
       "content-type": "multipart/form-data",
     },
@@ -18,7 +18,7 @@ export const imageUpload = async (image) => {
 };
 
 export const saveUser = async (currentUser) => {
-  // console.log(currentUser);
+  console.log(currentUser);
   const currentUserInfo = {
     email: currentUser?.email,
     name: currentUser?.displayName,
