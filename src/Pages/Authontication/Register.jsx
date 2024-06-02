@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { SiSpinrilla } from "react-icons/si";
 import useAuth from "../../Hooks/useAuth";
-import { imageUpload } from "../../api/utlils";
+import { imageUpload, saveUser } from "../../api/utlils";
 
 const Register = () => {
   const { createUser, loading, updateUserProfile, setUser, setLoading, user } =
@@ -36,6 +36,12 @@ const Register = () => {
         .then((result) => {
           updateUserProfile(data.name, image_url).then(() => {
             setUser({ ...user, displayName: data.name, photoURL: image_url });
+            saveUser({
+              email: data.email,
+              displayName: data.name,
+              photoURL: image_url,
+            });
+
             toast.success("Register Successfully", {
               style: {
                 background: "#2B3440",

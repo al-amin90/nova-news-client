@@ -10,6 +10,7 @@ import axios from "axios";
 import SocialMediaLogin from "../../Components/Authontication/SocialMediaLogin";
 import useAuth from "../../Hooks/useAuth";
 import { SiSpinrilla } from "react-icons/si";
+import { saveUser } from "../../api/utlils";
 
 const Login = () => {
   const { user, loading, logInUser, setLoading } = useAuth();
@@ -26,7 +27,7 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     //   sing in
-    console.log(data.email, data.password);
+    // console.log(data.email, data.password);
     try {
       logInUser(data.email, data.password)
         .then((result) => {
@@ -37,7 +38,8 @@ const Login = () => {
               color: "#fff",
             },
           });
-          navigate(from);
+          navigate(result.user);
+          saveUser(result.user);
         })
         .catch((error) => {
           setLoading(false);
@@ -46,6 +48,7 @@ const Login = () => {
     } catch (err) {
       //   console.log(err);
       toast.error(err.message);
+      console.log(err);
       setLoading(false);
     }
   };

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import facebook from "../../assets/authImgs/face.png";
+import { saveUser } from "../../api/utlils";
 
 const SocialMediaLogin = ({ from }) => {
   const { logInWithGoogle } = useAuth();
@@ -8,7 +9,10 @@ const SocialMediaLogin = ({ from }) => {
 
   const loginSocial = () => {
     logInWithGoogle().then((result) => {
+      console.log(result.user);
+      // save user in db
       navigate(from);
+      saveUser(result.user);
     });
   };
 

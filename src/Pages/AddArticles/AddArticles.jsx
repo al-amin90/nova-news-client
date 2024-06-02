@@ -6,12 +6,14 @@ import { SiSpinrilla } from "react-icons/si";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { imageUpload } from "../../api/utlils";
 
 const AddArticles = () => {
   const update = false;
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
 
   const options = [
     { value: "chocolate", label: "Chocolate" },
@@ -26,20 +28,37 @@ const AddArticles = () => {
     formState: { errors },
   } = useForm();
 
+  // handle image
+  const handleImage = async (image) => {
+    // 1.  imageUpload
+
+    const image_url = await imageUpload(image);
+    if (image_url) {
+      setImagePreview(image_url);
+    } else {
+      setImagePreview("");
+    }
+  };
+
   const onSubmit = async (data) => {
     // console.log(name, email, password, image?.data?.display_url);
-    console.log(data, selectedOption);
 
     try {
-      // 1.  imageUpload
-      //   const image_url = await imageUpload(data.image[0]);
-      //   console.log(image_url);
+      const articleInfo = {
+        title: data.title,
+        image: imagePreview,
+        publisher: selectedOption,
+        tags: data.tags,
+        description: data.description,
+        isPremium: false,
+      };
+
+      console.log(articleInfo);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const imagePreview = null;
   return (
     <div className="">
       {/* top banner component */}
@@ -88,6 +107,7 @@ const AddArticles = () => {
                     type="file"
                     name="image"
                     {...register("image")}
+                    onChange={(e) => handleImage(e.target.files[0])}
                     id="image"
                     accept="image/*"
                     hidden
