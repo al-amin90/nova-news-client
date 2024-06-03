@@ -1,22 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Loader from "../Shared/Loader";
 import { Helmet } from "react-helmet-async";
 import BannerHead from "../../Components/Shared/BannerHead";
 import { MdDeleteForever } from "react-icons/md";
-import { MdCancel } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
-import { MdWorkspacePremium } from "react-icons/md";
+import { FaQuestionCircle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "antd";
 
 const MyArticles = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { user, loading } = useAuth();
+  const [modal2Open, setModal2Open] = useState(false);
+  const [declineSms, setDeclineSms] = useState("");
   console.log(user?.email);
+
+  const openModal = (sms) => {
+    setModal2Open(true);
+    setDeclineSms(sms);
+  };
+
+  const closeModal = () => {
+    setModal2Open(false);
+    setDeclineSms("");
+  };
+
+  // -------------------
 
   const {
     data: articles = [],
@@ -46,6 +60,8 @@ const MyArticles = () => {
   const handleDelete = (id) => {
     deletedArticle(id);
   };
+
+  // -------------
 
   console.log(articles);
   if (isLoading) return <Loader></Loader>;
@@ -129,7 +145,7 @@ const MyArticles = () => {
                         {art?.title.slice(0, 18)}...
                       </td>
 
-                      <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                      <td className="px-4 py-4 flex gap-3 items-center text-sm font-medium text-gray-700 whitespace-nowrap">
                         <div
                           className={`inline-flex items-center px-3 py-1 rounded-full gap-x-2 
                                 ${
@@ -156,6 +172,34 @@ const MyArticles = () => {
                             {art?.status}
                           </h2>
                         </div>
+
+                        {art?.status === "declined" ? (
+                          <>
+                            <button
+                              title="Why Decline"
+                              className="text-gray-500 bg-red-100/60 m-auto transition-colors duration-200 rounded-full  hover:text-red-500 focus:outline-none disabled:cursor-not-allowed"
+                              onClick={() => openModal(art?.declineReason)}
+                            >
+                              <FaQuestionCircle className="text-2xl ml-3" />
+                            </button>
+                            <Modal
+                              centered
+                              open={modal2Open}
+                              onCancel={() => closeModal(false)}
+                            >
+                              <div>
+                                <h2 className="text-center text-xl font-semibold mt-2">
+                                  Behind the action is?
+                                </h2>
+                                <p className="text-center mt-8 w-5/6 mx-auto">
+                                  {declineSms}
+                                </p>
+                              </div>
+                            </Modal>
+                          </>
+                        ) : (
+                          ""
+                        )}
                       </td>
                       <td className="px-4 md:pl-9 py-4 text-sm text-gray-500  whitespace-nowrap">
                         {art?.isPremium === true ? (
