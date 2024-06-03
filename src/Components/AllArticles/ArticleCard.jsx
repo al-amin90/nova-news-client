@@ -31,7 +31,7 @@ const ArticleCard = ({ article }) => {
         </div>
         <div
           style={{ backgroundImage: `url(${artibg})` }}
-          className=" px-1 bg-cover font-fire bg-center pt-1"
+          className=" p-1 bg-cover font-fire bg-center pt-1"
         >
           <div className="font-md flex items-center justify-between">
             <h2 className="text-xl font-nunito pt-3 font-extrabold">
