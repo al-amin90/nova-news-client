@@ -1,22 +1,22 @@
 import React from "react";
-import BannerHead from "../../Components/Shared/BannerHead";
 import { Helmet } from "react-helmet-async";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import Loader from "../Shared/Loader";
+import BannerHead from "../../Components/Shared/BannerHead";
 import ArticleCard from "../../Components/AllArticles/ArticleCard";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../Shared/Loader";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
-const AllArticles = () => {
-  const axiosPublic = useAxiosPublic();
+const PremiumArticles = () => {
+  const axiosSecure = useAxiosSecure();
 
   const {
     data: articles = [],
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["articles"],
+    queryKey: ["premium-articles"],
     queryFn: async () => {
-      const { data } = await axiosPublic.get("/articles");
+      const { data } = await axiosSecure.get("/premium-articles");
       return data;
     },
   });
@@ -26,26 +26,25 @@ const AllArticles = () => {
   return (
     <div className="pb-28">
       <Helmet>
-        <title> novaNews || All Articles</title>
+        <title> novaNews || Premium Articles</title>
       </Helmet>
 
       {/* top banner component */}
       <BannerHead
-        label={"All Articles"}
-        image={"https://i.ibb.co/SwMHqyL/allarticles.jpg"}
+        label={"Premium Articles"}
+        image={"https://i.ibb.co/4P2SbNv/typify-demo-entertainment5.jpg"}
       ></BannerHead>
 
       {/* cards */}
-      <div className="flex max-w-7xl w-[90%] mt-20 mx-auto gap-7">
-        <div className="grid w-3/4 grid-cols-1 md:grid-cols-3 gap-6">
+      <div className=" max-w-7xl w-[90%] mt-28 mx-auto gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {articles?.map((arti) => (
             <ArticleCard key={arti?._id} article={arti}></ArticleCard>
           ))}
         </div>
-        <div className="w-1/4">the 2nd part here</div>
       </div>
     </div>
   );
 };
 
-export default AllArticles;
+export default PremiumArticles;

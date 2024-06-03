@@ -10,6 +10,7 @@ import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import AdminRouter from "./AdminRouter";
 import AllArticles from "../Pages/AllArticles/AllArticles";
 import ManageArticles from "../Pages/Dashboard/ManageArticles";
+import PremiumArticles from "../Pages/PremiumArticles/PremiumArticles";
 
 const router = createBrowserRouter([
   {
@@ -52,7 +53,7 @@ const router = createBrowserRouter([
         path: "/premiumArticles",
         element: (
           <PrivateRouter>
-            <p>comeing</p>
+            <PremiumArticles></PremiumArticles>
           </PrivateRouter>
         ),
       },

@@ -4,7 +4,6 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import artibg from "../../assets/allArticle/premium.jpg";
 
 const ArticleCard = ({ article }) => {
-  const { title, description } = article;
   return (
     <div className="min-h-full">
       <div className="card min-h-full group rounded-2xl text-white card-compact font-open shadow-lg">
@@ -30,17 +29,19 @@ const ArticleCard = ({ article }) => {
           </div>
         </div>
         <div
-          style={{ backgroundImage: `url(${artibg})` }}
-          className=" p-1 bg-cover font-fire bg-center pt-1"
+          style={{
+            backgroundImage: `url(${article?.isPremium ? artibg : ""})`,
+          }}
+          className=" p-1 min-h-full bg-cover font-fire bg-center pt-1"
         >
           <div className="font-md flex items-center justify-between">
             <h2 className="text-xl font-nunito pt-3 font-extrabold">
-              {title.slice(0, 42)}
-              {title.length > 42 ? "..." : ""}
+              {article?.title.slice(0, 42)}
+              {article?.title.length > 42 ? "..." : ""}
             </h2>
           </div>
           <div className="mt-4 text-white/80 text-base">
-            {description.slice(0, 88)}...
+            {article?.description.slice(0, 88)}...
           </div>
 
           <div className="text-white/80 justify-between mt-3 flex items-center">

@@ -66,6 +66,7 @@ const AddArticles = () => {
         description: data.description,
         isPremium: false,
         timeStamp: new Date(),
+        viewCount: 0,
         status: "pending",
         author: {
           name: user?.displayName,

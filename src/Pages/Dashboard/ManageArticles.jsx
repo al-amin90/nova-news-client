@@ -34,8 +34,20 @@ const ManageArticles = () => {
     },
   });
 
+  const { mutateAsync: deletedArticle } = useMutation({
+    mutationFn: async (id) => {
+      const { data } = await axiosSecure.delete(`/article/${id}`);
+      console.log(data);
+    },
+    onSuccess: () => {
+      refetch();
+      toast.success("Article Deleted is Successfully! ");
+    },
+  });
+
   console.log(allArticles);
 
+  // handle update state isPremium & approved
   const handleState = (id, state) => {
     let value = {};
     if (state === "verified") {
@@ -46,6 +58,11 @@ const ManageArticles = () => {
       value = { id, isPremium: true };
       mutateAsync(value);
     }
+  };
+
+  // handle delted
+  const handleDelete = (id) => {
+    deletedArticle(id);
   };
 
   if (isLoading) return <Loader></Loader>;
@@ -238,7 +255,7 @@ const ManageArticles = () => {
                       </td>
                       <td className="px-4 py-4  whitespace-nowrap">
                         <button
-                          onClick={() => handleStatus(art._id)}
+                          onClick={() => handleDelete(art._id)}
                           title="Mark Complete"
                           className="text-gray-500 m-auto transition-colors duration-200   hover:text-red-500 focus:outline-none disabled:cursor-not-allowed"
                         >
