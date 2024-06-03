@@ -14,7 +14,7 @@ const ArticleCard = ({ article }) => {
           ></figure>
           <div className="text-center absolute bottom-4 left-4">
             <span className="text-white rounded-full hover:border hover:border-[#E46752]  transition-all duration-300 text-base p-px px-3 2xl:text-sm transform font-bold bg-[#FF2400]">
-              {article?.publisher}
+              {"article?.publisher"}
             </span>
           </div>
           <div className=" hidden  duration-300 group-hover:flex absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 items-center justify-between pb-5">

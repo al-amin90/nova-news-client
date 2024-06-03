@@ -48,7 +48,7 @@ const Register = () => {
                 color: "#fff",
               },
             });
-            navigate(from);
+            navigate(from, { replace: true });
           });
         })
         .catch((error) => {

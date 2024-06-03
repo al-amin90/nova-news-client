@@ -11,6 +11,10 @@ import AdminRouter from "./AdminRouter";
 import AllArticles from "../Pages/AllArticles/AllArticles";
 import ManageArticles from "../Pages/Dashboard/ManageArticles";
 import PremiumArticles from "../Pages/PremiumArticles/PremiumArticles";
+import MyArticles from "../Pages/MyArticles/MyArticles";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+import axios from "axios";
+import { baseURL } from "../api/utlils";
 
 const router = createBrowserRouter([
   {
@@ -25,9 +29,18 @@ const router = createBrowserRouter([
         path: "/addArticles",
         element: (
           <PrivateRouter>
-            <AddArticles />
+            <AddArticles isAdd={true} />
           </PrivateRouter>
         ),
+      },
+      {
+        path: "/updateArticle/:id",
+        element: (
+          <PrivateRouter>
+            <AddArticles isAdd={false} />
+          </PrivateRouter>
+        ),
+        loader: ({ params }) => axios.get(`${baseURL}/article/${params.id}`),
       },
       {
         path: "/allArticles",
@@ -45,7 +58,7 @@ const router = createBrowserRouter([
         path: "/myArticles",
         element: (
           <PrivateRouter>
-            <p>comeing</p>
+            <MyArticles></MyArticles>
           </PrivateRouter>
         ),
       },

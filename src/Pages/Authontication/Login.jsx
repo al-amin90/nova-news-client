@@ -37,7 +37,7 @@ const Login = () => {
               color: "#fff",
             },
           });
-          navigate(from);
+          navigate(from, { replace: true });
           saveUser(result.user);
         })
         .catch((error) => {

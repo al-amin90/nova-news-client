@@ -1,28 +1,38 @@
 import Select from "react-select";
 import inputId from "react-select";
 import { useState } from "react";
-import classNames from "classnames";
 import { SiSpinrilla } from "react-icons/si";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { imageUpload } from "../../api/utlils";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { toast } from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 import BannerHead from "../../Components/Shared/BannerHead";
+import Loader from "../Shared/Loader";
 
-const AddArticles = () => {
-  const update = false;
+const AddArticles = ({ isAdd }) => {
+  // if data has fetch the data
+  let article = null;
+  if (!isAdd) {
+    const { data } = useLoaderData();
+    article = data;
+  }
+
+  console.log(article);
+
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const [imagePreview, setImagePreview] = useState("");
+  const [selectedOption, setSelectedOption] = useState(
+    article?.publisher || []
+  );
+  const [selectedOptions, setSelectedOptions] = useState(article?.tags || []);
+  const [imagePreview, setImagePreview] = useState(article?.image || "");
   const axiosSecure = useAxiosSecure();
-
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -32,6 +42,7 @@ const AddArticles = () => {
   // handle image
   const handleImage = async (image) => {
     // 1.  imageUpload
+
     const image_url = await imageUpload(image);
     if (image_url) {
       console.log(image_url);
@@ -41,6 +52,7 @@ const AddArticles = () => {
     }
   };
 
+  // post article
   const { mutateAsync } = useMutation({
     mutationFn: async (article) => {
       const { data } = await axiosSecure.post("/article", article);
@@ -53,6 +65,21 @@ const AddArticles = () => {
     },
   });
 
+  // update article
+  const { mutateAsync: updateArticle } = useMutation({
+    mutationFn: async (value) => {
+      const { data } = await axiosSecure.patch(
+        `/article/${article?._id}`,
+        value
+      );
+      console.log(data);
+    },
+    onSuccess: () => {
+      toast.success("Article Update Successfully! ");
+      navigate("/myArticles");
+    },
+  });
+
   // add Articles
   const onSubmit = async (data) => {
     setLoading(true);
@@ -61,13 +88,13 @@ const AddArticles = () => {
       const articleInfo = {
         title: data.title,
         image: imagePreview,
-        publisher: selectedOption.value,
+        publisher: selectedOption,
         tags: selectedOptions,
         description: data.description,
-        isPremium: false,
-        timeStamp: new Date(),
-        viewCount: 0,
-        status: "pending",
+        isPremium: article?.isPremium || false,
+        timeStamp: article?.timeStamp || new Date(),
+        viewCount: article?.viewCount || 0,
+        status: article?.status || "pending",
         author: {
           name: user?.displayName,
           email: user?.email,
@@ -76,7 +103,9 @@ const AddArticles = () => {
       };
 
       console.table(articleInfo);
-      await mutateAsync(articleInfo);
+      setLoading(false);
+
+      isAdd ? await mutateAsync(articleInfo) : await updateArticle(articleInfo);
     } catch (err) {
       console.log(err);
       setLoading(false);
@@ -103,12 +132,12 @@ const AddArticles = () => {
   return (
     <div className="pb-28">
       <Helmet>
-        <title> novaNews || Add Articles</title>
+        <title> novaNews || {isAdd ? "Add" : "Update"} Articles</title>
       </Helmet>
 
       {/* top banner component */}
       <BannerHead
-        label={"Add Articles"}
+        label={`${isAdd ? "Add" : "Update"} Articles`}
         image={"https://i.ibb.co/80dQ7Zz/typify-demo-software-4.jpg"}
       ></BannerHead>
 
@@ -123,7 +152,7 @@ const AddArticles = () => {
               className="block text-white font-semibold mb-2 "
               htmlFor="AVGCost"
             >
-              Add Image ---
+              {isAdd ? "Add" : "Update"} Image ---
             </label>
             <div
               style={{ backgroundImage: `url(${imagePreview})` }}
@@ -142,7 +171,7 @@ const AddArticles = () => {
                     hidden
                   />
                   <div className="font-bold cursor-pointer  uppercase text-xs ml-6 mr-5 py-1 md:py-2 rounded-lg px-3 md:px-6 bg-[#FF2400] transition-all shadow-md duration-300 border-y border-[#FF664D] hover:bg-[#ff5537] text-white">
-                    Add Image
+                    {isAdd ? "Add" : "Update"} Image
                   </div>
                 </label>
               </div>
@@ -158,6 +187,7 @@ const AddArticles = () => {
                 Enter Title ---
               </label>
               <input
+                defaultValue={article?.title || ""}
                 className="border bg-[#101011] text-white border-dotted border-[#5B5A5A] p-3 w-full rounded-md"
                 type="text"
                 //   defaultValue={spot?.Title || ""}
@@ -209,8 +239,8 @@ const AddArticles = () => {
         </label>
 
         <textarea
-          //   defaultValue={spot?.description || ""}
           placeholder="Enter Description"
+          defaultValue={article?.description || ""}
           className="border bg-[#101011] text-white border-dotted border-[#5B5A5A] p-3 w-full rounded-md"
           id="description"
           cols="10"
@@ -226,10 +256,10 @@ const AddArticles = () => {
         >
           {loading ? (
             <SiSpinrilla className="m-auto animate-spin" />
-          ) : update ? (
-            "Update Article"
-          ) : (
+          ) : isAdd ? (
             "Add Article"
+          ) : (
+            "Update Article"
           )}
         </button>
       </form>

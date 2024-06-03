@@ -11,7 +11,7 @@ const SocialMediaLogin = ({ from }) => {
     logInWithGoogle().then((result) => {
       console.log(result.user);
       // save user in db
-      navigate(from);
+      navigate(from, { replace: true });
       saveUser(result.user);
     });
   };
