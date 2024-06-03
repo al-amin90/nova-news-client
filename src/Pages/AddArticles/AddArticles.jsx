@@ -61,7 +61,7 @@ const AddArticles = ({ isAdd }) => {
     onSuccess: () => {
       setLoading(false);
       toast.success("Successful! Wait for the Admin response..");
-      navigate("/");
+      navigate("/myArticles");
     },
   });
 
@@ -190,7 +190,6 @@ const AddArticles = ({ isAdd }) => {
                 defaultValue={article?.title || ""}
                 className="border bg-[#101011] text-white border-dotted border-[#5B5A5A] p-3 w-full rounded-md"
                 type="text"
-                //   defaultValue={spot?.Title || ""}
                 placeholder=" Title is here"
                 id="Title"
                 {...register("title")}

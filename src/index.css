@@ -12,3 +12,7 @@
 .font-nunito{
     font-family: "Nunito Sans", sans-serif;
 }
+
+.ant-modal-footer{
+    display: none;
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import Loader from "../Shared/Loader";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
@@ -7,9 +7,19 @@ import { MdDeleteForever } from "react-icons/md";
 import { MdCancel } from "react-icons/md";
 import { MdWorkspacePremium } from "react-icons/md";
 import { toast } from "react-hot-toast";
+import DeclineModal from "../../Components/Modal/DeclineModal";
 
 const ManageArticles = () => {
   const axiosSecure = useAxiosSecure();
+  const [modal2Open, setModal2Open] = useState(false);
+  const [article, setArticle] = useState(null);
+  const [textAreaValue, setTextAreaValue] = useState("");
+
+  const closeModal = () => {
+    setModal2Open(false);
+    setArticle(null);
+    setTextAreaValue("");
+  };
 
   const {
     data: allArticles,
@@ -23,9 +33,10 @@ const ManageArticles = () => {
     },
   });
 
+  // patch calls
   const { mutateAsync } = useMutation({
     mutationFn: async (value) => {
-      const { data } = await axiosSecure.patch(`/article/${value.id}`, value);
+      const { data } = await axiosSecure.patch(`/article/${value?.id}`, value);
       console.log(data);
     },
     onSuccess: () => {
@@ -34,6 +45,7 @@ const ManageArticles = () => {
     },
   });
 
+  // delete article
   const { mutateAsync: deletedArticle } = useMutation({
     mutationFn: async (id) => {
       const { data } = await axiosSecure.delete(`/article/${id}`);
@@ -63,6 +75,30 @@ const ManageArticles = () => {
   // handle delted
   const handleDelete = (id) => {
     deletedArticle(id);
+  };
+
+  // --------------------------------------------
+  const openModal = (article) => {
+    setModal2Open(true);
+    setArticle(article);
+  };
+
+  const handleTextAreaChange = (e) => {
+    setTextAreaValue(e.target.value);
+  };
+
+  const handleSubmitt = async () => {
+    if (article) {
+      const value = {
+        id: article?._id,
+        declineReason: textAreaValue,
+        status: "declined",
+      };
+      console.log(value);
+
+      await mutateAsync(value);
+      closeModal();
+    }
   };
 
   if (isLoading) return <Loader></Loader>;
@@ -191,13 +227,17 @@ const ManageArticles = () => {
                                   art?.status === "approved" &&
                                   "text-emerald-500 bg-emerald-100/60"
                                 }
+                                ${
+                                  art?.status === "declined" &&
+                                  "text-red-500 bg-red-100/60"
+                                }
                                 `}
                         >
                           <span
                             className={`rounded-full  ${
                               art?.status === "pending" && "bg-yellow-500"
                             } ${art?.status === "approved" && "bg-green-500"}
-                            ${art?.status === "rejected" && "bg-red-500"} `}
+                            ${art?.status === "declined" && "bg-red-500"} `}
                           ></span>
                           <h2 className="text-sm capitalize font-normal ">
                             {art?.status}
@@ -205,7 +245,7 @@ const ManageArticles = () => {
                         </div>
                       </td>
                       <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                        {"art?.publisher"}
+                        {art?.publisher?.value}
                       </td>
 
                       {/* actions are here */}
@@ -213,7 +253,7 @@ const ManageArticles = () => {
                         <button
                           onClick={() => handleState(art._id, true)}
                           disabled={art.isPremium === true}
-                          title="Mark Complete"
+                          title="Mark Premium"
                           className="text-gray-500 m-auto transition-colors duration-200   hover:text-green-500 focus:outline-none disabled:cursor-not-allowed"
                         >
                           <MdWorkspacePremium className="text-2xl ml-3" />
@@ -223,7 +263,7 @@ const ManageArticles = () => {
                         <button
                           onClick={() => handleState(art._id, "approved")}
                           disabled={art.status !== "pending"}
-                          title="Mark Complete"
+                          title="Mark Approve"
                           className="text-gray-500 ml-4 transition-colors duration-200   hover:text-green-500 focus:outline-none disabled:cursor-not-allowed"
                         >
                           <svg
@@ -245,18 +285,27 @@ const ManageArticles = () => {
 
                       <td className="px-4 py-4  whitespace-nowrap">
                         <button
-                          onClick={() => handleStatus(art._id)}
                           disabled={art.status !== "pending"}
-                          title="Mark Complete"
+                          title="Mark Decline"
                           className="text-gray-500 m-auto transition-colors duration-200   hover:text-red-500 focus:outline-none disabled:cursor-not-allowed"
+                          onClick={() => openModal(art)}
                         >
                           <MdCancel className="text-2xl ml-3" />
                         </button>
+                        {modal2Open && (
+                          <DeclineModal
+                            textAreaValue={textAreaValue}
+                            handleTextAreaChange={handleTextAreaChange}
+                            modal2Open={modal2Open}
+                            setModal2Open={setModal2Open}
+                            handleSubmitt={handleSubmitt}
+                          ></DeclineModal>
+                        )}
                       </td>
                       <td className="px-4 py-4  whitespace-nowrap">
                         <button
                           onClick={() => handleDelete(art._id)}
-                          title="Mark Complete"
+                          title="Mark Delete"
                           className="text-gray-500 m-auto transition-colors duration-200   hover:text-red-500 focus:outline-none disabled:cursor-not-allowed"
                         >
                           <MdDeleteForever className="text-2xl ml-3" />

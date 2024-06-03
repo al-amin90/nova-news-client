@@ -140,13 +140,17 @@ const MyArticles = () => {
                                   art?.status === "approved" &&
                                   "text-emerald-500 bg-emerald-100/60"
                                 }
+                                ${
+                                  art?.status === "declined" &&
+                                  "text-red-500 bg-red-100/60"
+                                }
                                 `}
                         >
                           <span
                             className={`rounded-full  ${
                               art?.status === "pending" && "bg-yellow-500"
                             } ${art?.status === "approved" && "bg-green-500"}
-                            ${art?.status === "rejected" && "bg-red-500"} `}
+                            ${art?.status === "declined" && "bg-red-500"} `}
                           ></span>
                           <h2 className="text-sm capitalize font-normal ">
                             {art?.status}
