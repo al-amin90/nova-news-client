@@ -2,10 +2,11 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import Loader from "../Shared/Loader";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { MdDeleteForever } from "react-icons/md";
 import { MdCancel } from "react-icons/md";
 import { MdWorkspacePremium } from "react-icons/md";
+import { toast } from "react-hot-toast";
 
 const ManageArticles = () => {
   const axiosSecure = useAxiosSecure();
@@ -22,7 +23,30 @@ const ManageArticles = () => {
     },
   });
 
+  const { mutateAsync } = useMutation({
+    mutationFn: async (value) => {
+      const { data } = await axiosSecure.patch(`/article/${value.id}`, value);
+      console.log(data);
+    },
+    onSuccess: () => {
+      refetch();
+      toast.success("Your Request is Successful! ");
+    },
+  });
+
   console.log(allArticles);
+
+  const handleState = (id, state) => {
+    let value = {};
+    if (state === "verified") {
+      value = { id, status: "verified" };
+      mutateAsync(value);
+    }
+    if (state === true) {
+      value = { id, isPremium: true };
+      mutateAsync(value);
+    }
+  };
 
   if (isLoading) return <Loader></Loader>;
 
@@ -99,6 +123,9 @@ const ManageArticles = () => {
                     </th>
 
                     <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                      Premium
+                    </th>
+                    <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
                       Approve
                     </th>
                     <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
@@ -106,9 +133,6 @@ const ManageArticles = () => {
                     </th>
                     <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
                       Delete
-                    </th>
-                    <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                      Premium
                     </th>
                   </tr>
                 </thead>
@@ -167,9 +191,20 @@ const ManageArticles = () => {
                         {art?.publisher}
                       </td>
 
+                      {/* actions are here */}
+                      <td className="px-4 py-4  whitespace-nowrap">
+                        <button
+                          onClick={() => handleState(art._id, true)}
+                          disabled={art.isPremium === true}
+                          title="Mark Complete"
+                          className="text-gray-500 m-auto transition-colors duration-200   hover:text-green-500 focus:outline-none disabled:cursor-not-allowed"
+                        >
+                          <MdWorkspacePremium className="text-2xl ml-3" />
+                        </button>
+                      </td>
                       <td className="px-4 py-4 text-sm whitespace-nowrap">
                         <button
-                          onClick={() => handleStatus(art._id)}
+                          onClick={() => handleState(art._id, "verified")}
                           disabled={art.status !== "pending"}
                           title="Mark Complete"
                           className="text-gray-500 ml-4 transition-colors duration-200   hover:text-green-500 focus:outline-none disabled:cursor-not-allowed"
@@ -190,6 +225,7 @@ const ManageArticles = () => {
                           </svg>
                         </button>
                       </td>
+
                       <td className="px-4 py-4  whitespace-nowrap">
                         <button
                           onClick={() => handleStatus(art._id)}
@@ -207,15 +243,6 @@ const ManageArticles = () => {
                           className="text-gray-500 m-auto transition-colors duration-200   hover:text-red-500 focus:outline-none disabled:cursor-not-allowed"
                         >
                           <MdDeleteForever className="text-2xl ml-3" />
-                        </button>
-                      </td>
-                      <td className="px-4 py-4  whitespace-nowrap">
-                        <button
-                          onClick={() => handleStatus(art._id)}
-                          title="Mark Complete"
-                          className="text-gray-500 m-auto transition-colors duration-200   hover:text-green-500 focus:outline-none disabled:cursor-not-allowed"
-                        >
-                          <MdWorkspacePremium className="text-2xl ml-3" />
                         </button>
                       </td>
                     </tr>
