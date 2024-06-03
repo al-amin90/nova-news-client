@@ -11,22 +11,16 @@ import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { toast } from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import BannerHead from "../../Components/Shared/BannerHead";
 
 const AddArticles = () => {
   const update = false;
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const [imagePreview, setImagePreview] = useState("");
   const axiosSecure = useAxiosSecure();
-
-  const options = [
-    { value: "Namibian", label: "Namibian" },
-    { value: "Ei Pais", label: "Ei Pais" },
-    { value: "The Irish Times", label: "The Irish Times" },
-    { value: "Independent", label: "Independent" },
-    { value: "Toronto Star", label: "Toronto Star" },
-  ];
 
   const navigate = useNavigate();
   const {
@@ -68,7 +62,7 @@ const AddArticles = () => {
         title: data.title,
         image: imagePreview,
         publisher: selectedOption.value,
-        tags: data.tags,
+        tags: selectedOptions,
         description: data.description,
         isPremium: false,
         timeStamp: new Date(),
@@ -88,6 +82,23 @@ const AddArticles = () => {
     }
   };
 
+  const options = [
+    { value: "Namibian", label: "Namibian" },
+    { value: "Ei Pais", label: "Ei Pais" },
+    { value: "The Irish Times", label: "The Irish Times" },
+    { value: "Independent", label: "Independent" },
+    { value: "Toronto Star", label: "Toronto Star" },
+  ];
+
+  const options2 = [
+    { value: "#culture", label: "Culture" },
+    { value: "#entertainment", label: "Entertainment" },
+    { value: "#fashion", label: "Fashion" },
+    { value: "#lifestyle", label: "Lifestyle" },
+    { value: "#technology", label: "Technology" },
+    { value: "#travel", label: "Travel" },
+  ];
+
   return (
     <div className="pb-28">
       <Helmet>
@@ -95,26 +106,10 @@ const AddArticles = () => {
       </Helmet>
 
       {/* top banner component */}
-      <div className="md:h-[50vh] relative h-[300px]">
-        <div className="md:h-[50vh]  h-[300px] object-center" style={{}}>
-          <div className="bg-gradient-to-b from-[#00000000] min-h-full to-[#050505] w-full z-10 absolute"></div>
-          <img
-            className="object-cover w-full object-center md:h-[50vh] opacity-100 h-[300px]"
-            src="https://i.ibb.co/80dQ7Zz/typify-demo-software-4.jpg"
-            alt=""
-          />
-        </div>
-        <div className="max-w-7xl w-[94%] mx-auto">
-          <div className="absolute text-white top-1/2 left-1/2 -translate-x-1/2  z-20 ">
-            <div className="text-2xl md:text-5xl font-bold">
-              <h6 className="z-40 relative pl-2 shadow-xl">Add Articles</h6>
-              <h6 className="text-transparent px-3 h-4 shadow-md duration-300 border-y border-[#FF664D] -mt-4 -skew-x-[35deg] bg-[#FF2400] w-fit">
-                Add Articless
-              </h6>
-            </div>
-          </div>
-        </div>
-      </div>
+      <BannerHead
+        label={"Add Articles"}
+        image={"https://i.ibb.co/80dQ7Zz/typify-demo-software-4.jpg"}
+      ></BannerHead>
 
       {/* form add articles */}
       <form
@@ -131,7 +126,7 @@ const AddArticles = () => {
             </label>
             <div
               style={{ backgroundImage: `url(${imagePreview})` }}
-              className="file_upload bg-cover bg-center px-5 py-14 relative  border-dotted border bg-[#101011] text-white   border-[#5B5A5A] p-3 w-full rounded-md"
+              className="file_upload bg-cover bg-center px-5 py-14 md:py-24 relative  border-dotted border bg-[#101011] text-white   border-[#5B5A5A] p-3 w-full rounded-md"
             >
               <div className="flex flex-col w-max mx-auto text-center">
                 <label>
@@ -151,77 +146,77 @@ const AddArticles = () => {
                 </label>
               </div>
             </div>
-
-            <label
-              className="block text-white mb-2 font-semibold mt-4 "
-              htmlFor="Title"
-            >
-              Enter Title ---
-            </label>
-            <input
-              className="border bg-[#101011] text-white border-dotted border-[#5B5A5A] p-3 w-full rounded-md"
-              type="text"
-              //   defaultValue={spot?.Title || ""}
-              placeholder=" Title is here"
-              id="Title"
-              {...register("title")}
-              name="title"
-            />
-
-            <label
-              className="block mt-5 text-white font-semibold mb-2 "
-              htmlFor="AVGCost"
-            >
-              Select Publisher ---
-            </label>
-            <Select
-              inputId={inputId}
-              classNames={{}}
-              classNamePrefix={"bg-black"}
-              defaultValue={selectedOption}
-              onChange={setSelectedOption}
-              placeholder="Publisher"
-              options={options}
-            />
           </div>
           {/* Right side */}
           <div className="flex-1 ">
-            <label
-              className="block mb-2 text-white font-semibold "
-              htmlFor="description"
-            >
-              Enter Tags --- between tags must have comma ( , )
-            </label>
-
-            <textarea
-              //   defaultValue={spot?.description || ""}
-              placeholder="Tags are here"
-              className="border bg-[#101011] text-white border-dotted border-[#5B5A5A] p-3 w-full rounded-md"
-              id="tags"
-              cols="10"
-              {...register("tags")}
-              name="tags"
-              rows="5"
-            ></textarea>
-            <label
-              className="block mb-2 text-white font-semibold mt-2 "
-              htmlFor="description"
-            >
-              Enter Description ---
-            </label>
-
-            <textarea
-              //   defaultValue={spot?.description || ""}
-              placeholder="Enter Description"
-              className="border bg-[#101011] text-white border-dotted border-[#5B5A5A] p-3 w-full rounded-md"
-              id="description"
-              cols="10"
-              {...register("description")}
-              name="description"
-              rows="5"
-            ></textarea>
+            <div>
+              <label
+                className="block text-white mb-2 font-semibold  "
+                htmlFor="Title"
+              >
+                Enter Title ---
+              </label>
+              <input
+                className="border bg-[#101011] text-white border-dotted border-[#5B5A5A] p-3 w-full rounded-md"
+                type="text"
+                //   defaultValue={spot?.Title || ""}
+                placeholder=" Title is here"
+                id="Title"
+                {...register("title")}
+                name="title"
+              />
+            </div>
+            <div>
+              <label
+                className="block mt-4 text-white font-semibold mb-2 "
+                htmlFor="AVGCost"
+              >
+                Select Publisher ---
+              </label>
+              <Select
+                inputId={inputId}
+                classNamePrefix={"bg-black"}
+                defaultValue={selectedOption}
+                onChange={setSelectedOption}
+                placeholder="Publisher"
+                options={options}
+              />
+            </div>
+            <div>
+              <label
+                className="block mt-5 text-white font-semibold mb-2 "
+                htmlFor="AVGCost"
+              >
+                Select Tags ---
+              </label>
+              <Select
+                options={options2}
+                value={selectedOptions}
+                onChange={(selectedOption) =>
+                  setSelectedOptions(selectedOption)
+                }
+                isMulti={true}
+              />
+            </div>
           </div>
         </div>
+        <label
+          className="block mb-2 text-white font-semibold mt-2 "
+          htmlFor="description"
+        >
+          Enter Description ---
+        </label>
+
+        <textarea
+          //   defaultValue={spot?.description || ""}
+          placeholder="Enter Description"
+          className="border bg-[#101011] text-white border-dotted border-[#5B5A5A] p-3 w-full rounded-md"
+          id="description"
+          cols="10"
+          {...register("description")}
+          name="description"
+          rows="3"
+        ></textarea>
 
         <button
           type="submit"

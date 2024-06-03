@@ -8,6 +8,7 @@ import PrivateRouter from "./PrivateRouter";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import ManageUsers from "../Pages/Dashboard/ManageUsers";
 import AdminRouter from "./AdminRouter";
+import AllArticles from "../Pages/AllArticles/AllArticles";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/allArticles",
-        element: <p>comeing</p>,
+        element: <AllArticles></AllArticles>,
       },
       {
         path: "/subscription",
