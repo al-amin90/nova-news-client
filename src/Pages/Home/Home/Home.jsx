@@ -1,6 +1,7 @@
 import React from "react";
 import Banner from "../Banner";
 import { Helmet } from "react-helmet-async";
+import AllPublisher from "../AllPublisher/AllPublisher";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       </Helmet>
 
       <Banner></Banner>
+      <AllPublisher></AllPublisher>
     </div>
   );
 };
