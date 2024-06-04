@@ -19,6 +19,7 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [subPrice, setSubPrice] = useState(0.0);
   const axiosPublic = useAxiosPublic();
 
   // crate user
@@ -84,6 +85,8 @@ const AuthProvider = ({ children }) => {
     setUser,
     loading,
     setLoading,
+    subPrice,
+    setSubPrice,
     logOut,
   };
   return (

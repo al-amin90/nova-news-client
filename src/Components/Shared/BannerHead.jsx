@@ -15,8 +15,8 @@ const BannerHead = ({ label, image }) => {
         <div className="absolute text-white top-1/2 left-1/2 -translate-x-1/2  z-20 ">
           <div className="text-2xl md:text-5xl font-bold">
             <h6 className="z-40 relative pl-2 shadow-xl">{label}</h6>
-            <h6 className="text-transparent px-3 h-4 shadow-md duration-300 border-y border-[#FF664D] -mt-4 -skew-x-[35deg] bg-[#FF2400] w-fit">
-              {label}
+            <h6 className="text-transparent px-3 h-4 shadow-md duration-300 border-y border-[#FF664D] -mt-3 -skew-x-[35deg] bg-[#FF2400] w-fit">
+              {label}.
             </h6>
           </div>
         </div>

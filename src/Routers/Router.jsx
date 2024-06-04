@@ -16,6 +16,8 @@ import useAxiosSecure from "../Hooks/useAxiosSecure";
 import axios from "axios";
 import { baseURL } from "../api/utlils";
 import AddPublisher from "../Pages/Dashboard/AddPublisher";
+import Subscription from "../Pages/Subscription/Subscription";
+import Payment from "../Pages/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -51,7 +53,7 @@ const router = createBrowserRouter([
         path: "/subscription",
         element: (
           <PrivateRouter>
-            <p>comeing</p>
+            <Subscription></Subscription>
           </PrivateRouter>
         ),
       },
@@ -60,6 +62,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRouter>
             <MyArticles></MyArticles>
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/payment",
+        element: (
+          <PrivateRouter>
+            <Payment></Payment>
           </PrivateRouter>
         ),
       },

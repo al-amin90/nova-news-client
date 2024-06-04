@@ -25,8 +25,11 @@ const AllPublisher = () => {
     <div className="max-w-7xl w-[90%] mt-24 mb-28 mx-auto">
       <SectionTitle label={"All Publisher"}></SectionTitle>
       <div className="flex flex-wrap  gap-6 items-center justify-center">
-        {publisher?.map((p) => (
-          <div className="rounded-lg cursor-pointer hover:animate-ping flex flex-col items-center justify-center border border-[#FF2400]/80 p-5 bg-[#FF2400]/5">
+        {publisher?.map((p, idx) => (
+          <div
+            key={idx}
+            className="rounded-lg cursor-pointer hover:animate-ping flex flex-col items-center justify-center border border-[#FF2400]/80 p-5 bg-[#FF2400]/5"
+          >
             <figure className="h-16 p-2 w-36 overflow-hidden flex items-center justify-center rounded-lg bg-[#F3F3F3]">
               <img className="rounded-lg  " src={p?.image} alt="Shoes" />
             </figure>
