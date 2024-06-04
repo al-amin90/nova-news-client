@@ -15,6 +15,7 @@ import MyArticles from "../Pages/MyArticles/MyArticles";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import axios from "axios";
 import { baseURL } from "../api/utlils";
+import AddPublisher from "../Pages/Dashboard/AddPublisher";
 
 const router = createBrowserRouter([
   {
@@ -120,7 +121,11 @@ const router = createBrowserRouter([
       },
       {
         path: "addPublisher",
-        element: <p>Add Publisher</p>,
+        element: (
+          <AdminRouter>
+            <AddPublisher></AddPublisher>
+          </AdminRouter>
+        ),
       },
     ],
   },

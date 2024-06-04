@@ -36,8 +36,23 @@ const AddArticles = ({ isAdd }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+
+  // get the publisher
+  const {
+    data: publisher = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["publisher"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/publisher");
+      return data;
+    },
+  });
+  console.log(publisher);
 
   // handle image
   const handleImage = async (image) => {
@@ -112,13 +127,12 @@ const AddArticles = ({ isAdd }) => {
     }
   };
 
-  const options = [
-    { value: "Namibian", label: "Namibian" },
-    { value: "Ei Pais", label: "Ei Pais" },
-    { value: "The Irish Times", label: "The Irish Times" },
-    { value: "Independent", label: "Independent" },
-    { value: "Toronto Star", label: "Toronto Star" },
-  ];
+  const options = publisher.map((p, idx) => ({
+    value: p?.name,
+    label: p?.name,
+  }));
+
+  console.log(options);
 
   const options2 = [
     { value: "#culture", label: "Culture" },
@@ -129,6 +143,7 @@ const AddArticles = ({ isAdd }) => {
     { value: "#travel", label: "Travel" },
   ];
 
+  if (isLoading) return <Loader></Loader>;
   return (
     <div className="pb-28">
       <Helmet>
