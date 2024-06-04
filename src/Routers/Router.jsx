@@ -18,6 +18,7 @@ import { baseURL } from "../api/utlils";
 import AddPublisher from "../Pages/Dashboard/AddPublisher";
 import Subscription from "../Pages/Subscription/Subscription";
 import Payment from "../Pages/Payment/Payment";
+import ArticlesDetails from "../Pages/ArticlesDetails/ArticlesDetails";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRouter>
             <Subscription></Subscription>
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/articlesDetails/:id",
+        element: (
+          <PrivateRouter>
+            <ArticlesDetails></ArticlesDetails>
           </PrivateRouter>
         ),
       },
