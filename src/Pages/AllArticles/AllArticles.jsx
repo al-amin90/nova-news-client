@@ -21,7 +21,6 @@ const AllArticles = () => {
     },
   });
 
-  console.log(articles);
   if (isLoading) return <Loader></Loader>;
   return (
     <div className="pb-28">

@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import { useEffect, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -16,6 +17,31 @@ const CheckoutForm = () => {
   const [clientSecret, setClientSecret] = useState();
   const axiosSecure = useAxiosSecure();
   const { user, subPrice } = useAuth();
+
+  // make a user premium
+
+  let subscriptionTime = 0;
+  if (subPrice === 1) {
+    subscriptionTime = 1;
+  } else if (subPrice === 15) {
+    subscriptionTime = 5;
+  } else if (subPrice === 24.99) {
+    subscriptionTime = 10;
+  }
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async (subscriptionInfo) => {
+      const { data } = await axiosSecure.post(
+        `/subscription`,
+        subscriptionInfo
+      );
+      console.log(data);
+      return data;
+    },
+    onSuccess: () => {},
+  });
+
+  // --------------- payment system ------------------------
 
   useEffect(() => {
     axiosSecure
@@ -77,24 +103,15 @@ const CheckoutForm = () => {
 
     if (paymentIntent?.status === "succeeded") {
       //   1. create payment info obj
-      const paymentInfo = {
-        transactionId: paymentIntent.id,
-        date: new Date(),
-        name: user?.displayName,
+      const subscriptionInfo = {
         email: user?.email,
-        amount: subPrice,
+        time: subscriptionTime,
       };
+      console.log("inside the useeffect", user?.email, subscriptionInfo);
       toast.success(`Successfull Your transactionId: ${paymentIntent.id}`);
-      console.log(paymentInfo);
 
       try {
-        // console.log(paymentInfo);
-        //   2. save payment info in booking collection (db)
-        // const { data } = await axiosSecure.post("/donate", donateInfo);
-        // if (data.insertedId) {
-        //   navigate("/dashboard/donateHistory");
-        // }
-        //   3. change room status to booked in db
+        await mutateAsync(subscriptionInfo);
       } catch (err) {
         console.log(err.message);
       }

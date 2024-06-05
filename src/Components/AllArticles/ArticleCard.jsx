@@ -50,12 +50,12 @@ const ArticleCard = ({ article }) => {
           <div className="text-white/80 justify-between mt-3 flex items-center">
             <div className="flex text-sm  items-center ">
               <FaRegUser className=" text-sm " />
-              <span className=" ml-2">{"locationPickup"}</span>
+              <span className=" ml-2">{article?.author?.name}</span>
             </div>
             <div className="flex  text-base items-center ">
               <FaCalendarAlt className="text-sm" />
               <span className="text-sm ml-2">
-                {new Date().toLocaleDateString()}
+                {new Date(article?.timeStamp).toLocaleDateString()}
               </span>
             </div>
           </div>

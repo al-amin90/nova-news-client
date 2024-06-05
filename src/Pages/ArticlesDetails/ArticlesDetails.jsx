@@ -1,29 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Loader from "../Shared/Loader";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { FaCalendarAlt, FaEye, FaRegUser } from "react-icons/fa";
 import BannerHead from "../../Components/Shared/BannerHead";
+import { toast } from "react-hot-toast";
 
 const ArticlesDetails = () => {
   const axiosSecure = useAxiosSecure();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const {
     data: article = [],
     refetch,
+    isError,
+    error,
     isLoading,
   } = useQuery({
-    queryKey: ["articlesDetails"],
+    queryKey: ["articlesDetails", id],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/article/${id}`);
       return data;
     },
   });
 
-  console.log(article);
+  const { mutateAsync } = useMutation({
+    mutationFn: async () => {
+      const { data } = await axiosSecure.patch(`/articleViewCount/${id}`);
+      return data;
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
+  useEffect(() => {
+    mutateAsync();
+  }, [id]);
+
+  if (isError) {
+    const message = error?.response?.data?.message;
+    if (message) {
+      // console.log(error?.response?.data?.message);
+      toast.error(message);
+      navigate("/allArticles");
+    }
+  }
+
   if (isLoading) return <Loader></Loader>;
   return (
     <div>
@@ -95,34 +121,34 @@ const ArticlesDetails = () => {
             <p>{article?.description}</p>
           </div>
           <div className="mt-3">
-            <div class="bg-[#151515] mt-7 text-white rounded-lg p-9">
-              <h4 class=" text-xl font-bold">Download</h4>
-              <div class="flex items-center mt-6 justify-between">
-                <div class="flex items-center gap-3">
+            <div className="bg-[#151515] mt-7 text-white rounded-lg p-9">
+              <h4 className=" text-xl font-bold">Download</h4>
+              <div className="flex items-center mt-6 justify-between">
+                <div className="flex items-center gap-3">
                   <div>
                     <svg
                       stroke="currentColor"
                       fill="currentColor"
-                      stroke-width="0"
+                      strokeWidth="0"
                       viewBox="0 0 24 24"
                       aria-hidden="true"
-                      dataSlot="icon"
-                      class="text-3xl"
+                      dataslot="icon"
+                      className="text-3xl"
                       height="1em"
                       width="1em"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M5.625 1.5H9a3.75 3.75 0 0 1 3.75 3.75v1.875c0 1.036.84 1.875 1.875 1.875H16.5a3.75 3.75 0 0 1 3.75 3.75v7.875c0 1.035-.84 1.875-1.875 1.875H5.625a1.875 1.875 0 0 1-1.875-1.875V3.375c0-1.036.84-1.875 1.875-1.875ZM9.75 17.25a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-.75Zm2.25-3a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-1.5 0v-3a.75.75 0 0 1 .75-.75Zm3.75-1.5a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-5.25Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       ></path>
                       <path d="M14.25 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 16.5 7.5h-1.875a.375.375 0 0 1-.375-.375V5.25Z"></path>
                     </svg>
                   </div>
                   <div>
-                    <h6 class="font-medium text-base mt-2">Our Brochure</h6>
-                    <p class="font-normal mt-1 text-[#A2A2A2] text-sm">
+                    <h6 className="font-medium text-base mt-2">Our Brochure</h6>
+                    <p className="font-normal mt-1 text-[#A2A2A2] text-sm">
                       Download
                     </p>
                   </div>
@@ -130,14 +156,14 @@ const ArticlesDetails = () => {
                 <div>
                   <button
                     href="#slide1"
-                    class="bg-[#FF3811] p-4 rounded-md border-none mr-3"
+                    className="bg-[#FF3811] p-4 rounded-md border-none mr-3"
                   >
                     <svg
                       stroke="currentColor"
                       fill="currentColor"
-                      stroke-width="0"
+                      strokeWidth="0"
                       viewBox="0 0 448 512"
-                      class="text-xl  text-white"
+                      className="text-xl  text-white"
                       height="1em"
                       width="1em"
                       xmlns="http://www.w3.org/2000/svg"
@@ -147,32 +173,34 @@ const ArticlesDetails = () => {
                   </button>
                 </div>
               </div>
-              <div class="flex items-center mt-4 justify-between">
-                <div class="flex items-center gap-3">
+              <div className="flex items-center mt-4 justify-between">
+                <div className="flex items-center gap-3">
                   <div>
                     <svg
                       stroke="currentColor"
                       fill="currentColor"
-                      stroke-width="0"
+                      strokeWidth="0"
                       viewBox="0 0 24 24"
                       aria-hidden="true"
-                      dataSlot="icon"
-                      class="text-3xl"
+                      dataslot="icon"
+                      className="text-3xl"
                       height="1em"
                       width="1em"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M5.625 1.5H9a3.75 3.75 0 0 1 3.75 3.75v1.875c0 1.036.84 1.875 1.875 1.875H16.5a3.75 3.75 0 0 1 3.75 3.75v7.875c0 1.035-.84 1.875-1.875 1.875H5.625a1.875 1.875 0 0 1-1.875-1.875V3.375c0-1.036.84-1.875 1.875-1.875ZM9.75 17.25a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-.75Zm2.25-3a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-1.5 0v-3a.75.75 0 0 1 .75-.75Zm3.75-1.5a.75.75 0 0 0-1.5 0V18a.75.75 0 0 0 1.5 0v-5.25Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       ></path>
                       <path d="M14.25 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 16.5 7.5h-1.875a.375.375 0 0 1-.375-.375V5.25Z"></path>
                     </svg>
                   </div>
                   <div>
-                    <h6 class="font-medium text-base mt-2">Company Details</h6>
-                    <p class="font-normal mt-1 text-[#A2A2A2] text-sm">
+                    <h6 className="font-medium text-base mt-2">
+                      Company Details
+                    </h6>
+                    <p className="font-normal mt-1 text-[#A2A2A2] text-sm">
                       Download
                     </p>
                   </div>
@@ -180,14 +208,14 @@ const ArticlesDetails = () => {
                 <div>
                   <button
                     href="#slide1"
-                    class="bg-[#FF3811] p-4 rounded-md border-none mr-3"
+                    className="bg-[#FF3811] p-4 rounded-md border-none mr-3"
                   >
                     <svg
                       stroke="currentColor"
                       fill="currentColor"
-                      stroke-width="0"
+                      strokeWidth="0"
                       viewBox="0 0 448 512"
-                      class="text-xl  text-white"
+                      className="text-xl  text-white"
                       height="1em"
                       width="1em"
                       xmlns="http://www.w3.org/2000/svg"
@@ -198,21 +226,21 @@ const ArticlesDetails = () => {
                 </div>
               </div>
             </div>
-            <div class="bg-[#151515] mt-7 text-white rounded-lg p-9">
-              <div class="flex flex-col items-center mt-6 justify-between">
+            <div className="bg-[#151515] mt-7 text-white rounded-lg p-9">
+              <div className="flex flex-col items-center mt-6 justify-between">
                 <img src="https://i.ibb.co/s9rz3kq/download.png" />
-                <h4 class=" text-lg font-semibold  mt-4 mb-7 text-center">
+                <h4 className=" text-lg font-semibold  mt-4 mb-7 text-center">
                   Need Help? We Are Here To Help You
                 </h4>
-                <div class="bg-white py-3 rounded-lg px-9">
-                  <p class="text-lg font-bold text-black">
-                    <span class="text-[#FF3811]">Car Doctor </span>Special
+                <div className="bg-white py-3 rounded-lg px-9">
+                  <p className="text-lg font-bold text-black">
+                    <span className="text-[#FF3811]">Car Doctor </span>Special
                   </p>
-                  <p class="text-md text-center mt-1 pb-7 text-[#FF3811] font-bold">
-                    <span class="text-[#737373]">Save up to </span>60% off
+                  <p className="text-md text-center mt-1 pb-7 text-[#FF3811] font-bold">
+                    <span className="text-[#737373]">Save up to </span>60% off
                   </p>
                 </div>
-                <button class="bg-[#FF3811] -top-5 text-base text-white relative px-5 py-3 rounded-md border-none">
+                <button className="bg-[#FF3811] -top-5 text-base text-white relative px-5 py-3 rounded-md border-none">
                   Get A Quote
                 </button>
               </div>

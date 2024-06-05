@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import useAuth from "../../Hooks/useAuth";
 import SectionTitle from "../../Components/Shared/SectionTitle";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import useAuth from "../../Hooks/useAuth";
 import CheckoutForm from "./CheckoutForm";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_SECRET_KEY);
 console.log(stripePromise);
 
-const Payment = ({ price }) => {
+const Payment = () => {
   const { subPrice } = useAuth();
+
   return (
     <div className="pb-28">
       <Helmet>

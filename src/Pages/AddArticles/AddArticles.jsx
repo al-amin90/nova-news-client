@@ -21,8 +21,6 @@ const AddArticles = ({ isAdd }) => {
     article = data;
   }
 
-  console.log(article);
-
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState(
@@ -52,7 +50,6 @@ const AddArticles = ({ isAdd }) => {
       return data;
     },
   });
-  console.log(publisher);
 
   // handle image
   const handleImage = async (image) => {
@@ -131,8 +128,6 @@ const AddArticles = ({ isAdd }) => {
     value: p?.name,
     label: p?.name,
   }));
-
-  console.log(options);
 
   const options2 = [
     { value: "#culture", label: "Culture" },

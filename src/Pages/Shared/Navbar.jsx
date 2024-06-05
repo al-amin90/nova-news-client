@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import NavItem from "../../Components/Home/NavItem";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-hot-toast";
@@ -8,6 +8,7 @@ import useRole from "../../Hooks/useRole";
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const [isAdmin, isLoading] = useRole();
 
   const navLinks = (
@@ -96,7 +97,10 @@ const Navbar = () => {
               >
                 Log Out
               </button>
-              <div className="avatar">
+              <div
+                onClick={() => navigate("/profile")}
+                className="avatar cursor-pointer"
+              >
                 <div className="w-9  rounded-full">
                   <img src={user?.photoURL} />
                 </div>

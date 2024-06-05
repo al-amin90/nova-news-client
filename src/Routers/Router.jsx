@@ -19,6 +19,7 @@ import AddPublisher from "../Pages/Dashboard/AddPublisher";
 import Subscription from "../Pages/Subscription/Subscription";
 import Payment from "../Pages/Payment/Payment";
 import ArticlesDetails from "../Pages/ArticlesDetails/ArticlesDetails";
+import Profile from "../Pages/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -94,7 +95,7 @@ const router = createBrowserRouter([
         path: "/profile",
         element: (
           <PrivateRouter>
-            <p>comeing</p>
+            <Profile></Profile>
           </PrivateRouter>
         ),
       },

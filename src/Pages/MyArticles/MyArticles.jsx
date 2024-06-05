@@ -18,7 +18,6 @@ const MyArticles = () => {
   const { user, loading } = useAuth();
   const [modal2Open, setModal2Open] = useState(false);
   const [declineSms, setDeclineSms] = useState("");
-  console.log(user?.email);
 
   const openModal = (sms) => {
     setModal2Open(true);
@@ -63,7 +62,6 @@ const MyArticles = () => {
 
   // -------------
 
-  console.log(articles);
   if (isLoading) return <Loader></Loader>;
   return (
     <div className="pb-28">
@@ -213,8 +211,11 @@ const MyArticles = () => {
 
                       <td className="px-4 py-4 text-sm whitespace-nowrap">
                         <button
-                          title="Mark Complete"
-                          className="text-gray-500 ml-4 transition-colors duration-200   hover:text-green-500 focus:outline-none disabled:cursor-not-allowed"
+                          onClick={() =>
+                            navigate(`/articlesDetails/${art._id}`)
+                          }
+                          title="See the details"
+                          className=" text-white ml-4 px-3 py-1 transition-colors duration-200   bg-[#FF2602]/90 rounded-md focus:outline-none "
                         >
                           Details
                         </button>
@@ -223,16 +224,16 @@ const MyArticles = () => {
                       <td className="px-4 py-4  whitespace-nowrap">
                         <button
                           onClick={() => navigate(`/updateArticle/${art._id}`)}
-                          title="Mark Complete"
-                          className="text-gray-500 m-auto transition-colors duration-200   hover:text-red-500 focus:outline-none disabled:cursor-not-allowed"
+                          title="Edit Article"
+                          className="text-gray-500 m-auto transition-colors duration-200   hover:text-green-500 focus:outline-none disabled:cursor-not-allowed"
                         >
-                          <FaRegEdit className="text-2xl ml-3" />
+                          <FaRegEdit className="text-xl ml-3" />
                         </button>
                       </td>
                       <td className="px-4 py-4  whitespace-nowrap">
                         <button
                           onClick={() => handleDelete(art._id)}
-                          title="Mark Complete"
+                          title="Delete Article"
                           className="text-gray-500 m-auto transition-colors duration-200   hover:text-red-500 focus:outline-none disabled:cursor-not-allowed"
                         >
                           <MdDeleteForever className="text-2xl ml-3" />
