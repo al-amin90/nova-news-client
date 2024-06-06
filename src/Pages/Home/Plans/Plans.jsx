@@ -19,12 +19,12 @@ const Plans = () => {
         <div className="backdrop-blur-lg h-full rounded-2xl">
           {showSubscription ? (
             <div>
-              <h3 className="text-center font-medium mb-8 py-5 text-2xl text-white">
+              <h3 className="text-center font-medium md:mb-6 py-5 mx-2 text-2xl text-white">
                 Sign up for free or go Premium
               </h3>
-              <div className=" pb-10 pt-5  flex flex-col  lg:flex-row">
+              <div className=" pb-4 md:pb-10 pt-5  flex flex-col  lg:flex-row">
                 {/* left side */}
-                <div className="bg-white scale-90 text-[#101011] mx-12 w-96 rounded-3xl p-2">
+                <div className="bg-white scale-90 text-[#101011] md:mx-12 w-full md:w-96 rounded-3xl p-2">
                   <div>
                     <p className="w-fit bg-[#FF2400]/20 text-[#FF2400] px-5 py-2  rounded-2xl transition-colors duration-500 transform ">
                       Free
@@ -65,9 +65,9 @@ const Plans = () => {
                     backgroundImage: `url(${background})`,
                     backgroundBlendMode: "difference",
                   }}
-                  className="bg-white text-black mx-12 rounded-3xl"
+                  className="bg-white scale-90 md:scale-100 text-black md:mx-12 rounded-3xl"
                 >
-                  <div className="backdrop-blur-xl h-full w-96 rounded-3xl p-2">
+                  <div className="backdrop-blur-xl h-full w-full md:w-96 rounded-3xl p-2">
                     <div>
                       <p className="w-fit bg-[#FF2400]/20 text-[#FF2400] px-5 py-2  rounded-2xl transition-colors duration-500 transform ">
                         Premium
@@ -164,7 +164,7 @@ const Plans = () => {
                   Try free for 10 Days
                 </button>
               </div>
-              <div className="w-[56%] flex relative -bottom-10 justify-end">
+              <div className="w-full mg:w-[56%] flex relative -bottom-10 justify-end">
                 <img src={banner} className="object-contain " alt="" />
               </div>
             </div>

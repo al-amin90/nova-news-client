@@ -31,7 +31,7 @@ const Statistic = () => {
           onEnter={() => setCounterState(true)}
           onExit={() => setCounterState(false)}
         >
-          <div className="container mx-auto grid justify-center grid-cols-1 gap-7 text-center md:grid-cols-3">
+          <div className="container mx-auto grid justify-center grid-cols-1 gap-9 text-center md:grid-cols-3">
             <div className="flex flex-col justify-start m-2 lg:m-6">
               <p className="text-4xl font-bold leading-none lg:text-6xl">
                 {counterState && (

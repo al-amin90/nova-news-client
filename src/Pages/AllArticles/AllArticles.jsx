@@ -139,7 +139,7 @@ const AllArticles = () => {
               name="title"
             />
           </div>
-          <button className="font-bold uppercase text-xs ml-4 mr-5 py-1 md:py-2 rounded-full px-3 md:px-6 bg-[#FF2400] transition-all shadow-md duration-300 border-y border-[#FF664D] hover:bg-[#ff5537] text-white">
+          <button className="font-bold uppercase text-xs md:ml-4 md:mr-5 py-1 md:py-2 rounded-full px-3 md:px-6 bg-[#FF2400] transition-all shadow-md duration-300 border-y border-[#FF664D] hover:bg-[#ff5537] text-white">
             Search
           </button>
         </form>
@@ -149,7 +149,7 @@ const AllArticles = () => {
             <div
               key={t.value}
               onClick={() => handleTags(t.label)}
-              className="pr-7 gap-4 flex items-center justify-center py-1 rounded-full cursor-pointer text-xl text-white font-medium bg-[#1D1D1D] w-fit"
+              className="pr-7 gap-4 flex items-center justify-center py-1 rounded-full cursor-pointer text-sm md:text-xl text-white font-medium bg-[#1D1D1D] w-fit"
             >
               <img
                 src={t.image}
@@ -161,8 +161,8 @@ const AllArticles = () => {
           ))}
         </div>
 
-        <div className="flex mt-10 gap-7">
-          <div className="grid w-3/4 grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="flex flex-col lg:flex-row mt-10 gap-7">
+          <div className="grid lg:w-3/4 grid-cols-1 md:grid-cols-3 gap-6">
             {articles?.map((arti) => (
               <ArticleCard key={arti?._id} article={arti}></ArticleCard>
             ))}
