@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="bg-[#181818] text-white">
         <footer className="py-24 max-w-7xl w-[96%] mt-24 mx-auto ">
           <div className="container px-6 mx-auto space-y-6 divide-y md:space-y-12 divide-opacity-50">
-            <div className="grid lg:grid-cols-12 gap-10 md:gap-20    ">
+            <div className="grid lg:grid-cols-12 gap-10 lg:gap-20    ">
               <div className="pb-6 md:pb-0 md:col-span-5">
                 <p
                   rel="noopener noreferrer"
@@ -34,7 +34,7 @@ const Footer = () => {
                   Work with Us
                 </button>
               </div>
-              <div className="text-center md:text-left lg:col-span-3">
+              <div className="text-center md:text-left md:col-span-3">
                 <p className=" text-xl font-bold">
                   <SectionTitle
                     label="Quick Link"
@@ -156,7 +156,7 @@ const Footer = () => {
         </footer>
       </div>
       <div className="bg-[#0B0B0B] text-white/60 py-12">
-        <div className="text-center flex justify-between items-center max-w-7xl w-[96%] mx-auto ">
+        <div className="text-center flex md:flex-row flex-col gap-6 justify-between items-center max-w-7xl w-[96%] mx-auto ">
           <span>
             Copyright 2099 <span className="text-[#ff5537]">novaNews.com</span>{" "}
             Lorem ipsum dolor sit amet.
