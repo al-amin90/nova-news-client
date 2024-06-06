@@ -13,7 +13,7 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const UpdatePasswordModal = ({ setOpen, open }) => {
-  const { resetPassword } = useAuth();
+  const { resetPassword, setLoading, logOut } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -26,7 +26,7 @@ const UpdatePasswordModal = ({ setOpen, open }) => {
     resetPassword(data.email)
       .then(() => {
         setOpen(false);
-        navigate("/");
+        logOut();
         toast.success("Pleas Check Your Email Box");
       })
       .catch((error) => console.log(error));

@@ -104,7 +104,7 @@ const Payment = () => {
           <div className="mt-14">
             <SectionTitle label={"Payment "}></SectionTitle>
             <p className="text-lg text-white relative -top-7 font-bold mt-2">
-              Payment Amount:{" "}
+              Payment Amount:
               <span className=" text-[#FF5537]">${subPrice}</span>
             </p>
           </div>

@@ -27,7 +27,6 @@ const Banner = () => {
     },
   });
 
-  console.log(articles);
   if (isLoading) return <Loader></Loader>;
   return (
     <div className="">

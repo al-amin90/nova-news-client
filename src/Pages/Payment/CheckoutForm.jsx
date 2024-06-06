@@ -141,7 +141,7 @@ const CheckoutForm = () => {
         disabled={!stripe}
         className="py-2 mt-4 px-5 text-base border-2 border-[#FF5537] hover:text-[#FF5537] text-white duration-300 hover:bg-white bg-[#FF5537] rounded-full flex items-center gap-2 hover:shadow-xl font-medium"
       >
-        Donate Now
+        Pay Now
       </button>
     </form>
   );
