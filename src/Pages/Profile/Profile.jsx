@@ -2,12 +2,13 @@ import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import { Helmet } from "react-helmet-async";
 import UpdateUserModal from "../../Components/Modal/UpateUserModal";
+import UpdatePasswordModal from "../../Components/Modal/UpdatePasswordModal";
 
 const Profile = () => {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  console.log(user);
   return (
     <div className="flex justify-center pt-24 items-center h-screen">
       <Helmet>
@@ -34,7 +35,7 @@ const Profile = () => {
               />
             </a>
 
-            <p className="p-2 px-4 mt-2 text-xs text-white bg-[#FF2400] rounded-full">
+            <p className="p-2 px-4 mt-2 text-xs text-white bg-[#E02332] rounded-full">
               Admin
             </p>
             <p className="mt-2 text-xl font-medium  ">User Id: {user.uid}</p>
@@ -59,11 +60,18 @@ const Profile = () => {
                   <UpdateUserModal
                     setIsOpen={setIsOpen}
                     isOpen={isOpen}
-                    user={user}
                   ></UpdateUserModal>
-                  <button className="bg-[#E02332] px-7 py-1 rounded-lg text-white cursor-pointer hover:bg-[#af4053]">
+
+                  <button
+                    onClick={() => setOpen(true)}
+                    className="bg-[#E02332] px-7 py-1 rounded-lg text-white cursor-pointer hover:bg-[#af4053]"
+                  >
                     Change Password
                   </button>
+                  <UpdatePasswordModal
+                    open={open}
+                    setOpen={setOpen}
+                  ></UpdatePasswordModal>
                 </div>
               </div>
             </div>

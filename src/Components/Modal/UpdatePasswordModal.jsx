@@ -8,60 +8,32 @@ import {
 } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import { FaUpLong } from "react-icons/fa6";
-import { imageUpload } from "../../api/utlils";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-const UpdateUserModal = ({ setIsOpen, isOpen }) => {
-  const { user, setUser, updateUserProfile } = useAuth();
-  const [imagePreview, setImagePreview] = useState(user?.photoURL || "");
-  const [loading, setLoading] = useState(false);
+const UpdatePasswordModal = ({ setOpen, open }) => {
+  const { resetPassword } = useAuth();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  // handle image
-  const handleImage = async (image) => {
-    setLoading(true);
-    const image_url = await imageUpload(image);
-    if (image_url) {
-      console.log(image_url);
-      setImagePreview(image_url);
-      setLoading(false);
-    } else {
-      setImagePreview("");
-      setLoading(false);
-    }
-  };
-
   const onSubmit = async (data) => {
-    try {
-      const articleInfo = {
-        name: data.name,
-        image: imagePreview,
-      };
-
-      await updateUserProfile(data.name, imagePreview).then(() => {
-        setUser({ ...user, displayName: data.name, photoURL: imagePreview });
-        setIsOpen(false);
-        toast.success("Profile Update Successfully");
-      });
-
-      console.table(articleInfo);
-    } catch (err) {
-      console.log(err);
-    }
+    resetPassword(data.email)
+      .then(() => {
+        setOpen(false);
+        navigate("/");
+        toast.success("Pleas Check Your Email Box");
+      })
+      .catch((error) => console.log(error));
   };
-
   return (
-    <Transition appear show={isOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-10"
-        onClose={() => setIsOpen(false)}
-      >
+    <Transition appear show={open} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>
         <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"
@@ -93,55 +65,29 @@ const UpdateUserModal = ({ setIsOpen, isOpen }) => {
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"
                 >
-                  Update User Profile
+                  Update User Password
                 </DialogTitle>
-                <div className="flex-1">
-                  <div
-                    style={{ backgroundImage: `url(${imagePreview})` }}
-                    className="file_upload bg-cover bg-center bg-white px-5 py-14 mt-6 relative  border-dotted border  text-white   border-[#5B5A5A] p-3 w-full rounded-full"
-                  >
-                    <div className="flex flex-col w-max mx-auto text-center">
-                      <label>
-                        <input
-                          className="text-sm cursor-pointer w-36 hidden"
-                          type="file"
-                          name="image"
-                          {...register("image")}
-                          onChange={(e) => handleImage(e.target.files[0])}
-                          id="image"
-                          accept="image/*"
-                          hidden
-                        />
-                        <div className="font-bold cursor-pointer  uppercase text-xs ml-6 mr-5 py-1 md:py-2 rounded-lg px-3 animate-bounce md:px-6 bg-[#FF2400] transition-all shadow-md duration-300 border-y border-[#FF664D] hover:bg-[#ff5537] text-white">
-                          <FaUpLong className="text-lg" />
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
 
                 <div className="mt-4">
                   <label className="block mb-2 font-semibold  " htmlFor="Title">
-                    Enter Name ---
+                    Enter Email ---
                   </label>
                   <input
                     className="border  border-dotted border-[#5B5A5A] p-3 w-full rounded-md"
-                    type="text"
-                    defaultValue={user?.displayName}
-                    placeholder=" Enter Your Name"
-                    id="name"
-                    {...register("name")}
-                    name="name"
+                    type="email"
+                    placeholder=" Enter Your Email"
+                    id="email"
+                    {...register("email")}
+                    name="email"
                   />
                 </div>
 
                 <div className="flex mt-8 justify-center gap-5">
                   <button
                     type="submit"
-                    disabled={loading}
                     className="font-bold uppercase text-xs ml-6 mr-5 py-1 md:py-2 rounded-full px-3 md:px-6 bg-green-600 transition-all shadow-md duration-300 border-y border-green-500 hover:bg-green-500 text-white focus-visible:ring-offset-2"
                   >
-                    Update
+                    Send
                   </button>
                   <button
                     type="button"
@@ -160,4 +106,4 @@ const UpdateUserModal = ({ setIsOpen, isOpen }) => {
   );
 };
 
-export default UpdateUserModal;
+export default UpdatePasswordModal;
