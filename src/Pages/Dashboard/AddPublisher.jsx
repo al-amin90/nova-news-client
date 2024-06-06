@@ -95,9 +95,7 @@ const AddPublisher = () => {
                 </div>
               </div>
             </div>
-            {/* <button className="font-bold transform relative animate-bounce uppercase text-xs rounded-full py-5 px-5 bg-[#FF2400] transition-all shadow-md duration-1000 delay-1000 ease-in-out border border-[#FF664D] hover:bg-[#ff5537] text-white">
-              <FaUpLong className="text-lg" />
-            </button> */}
+
             <div className="mt-4">
               <label className="block mb-2 font-semibold  " htmlFor="Title">
                 Enter Name ---

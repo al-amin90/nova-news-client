@@ -1,8 +1,8 @@
 import React from "react";
-import Banner from "../Banner";
 import { Helmet } from "react-helmet-async";
 import AllPublisher from "../AllPublisher/AllPublisher";
 import Plans from "../Plans/Plans";
+import Banner from "../Banner";
 
 const Home = () => {
   return (

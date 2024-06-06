@@ -27,6 +27,15 @@ const ArticlesDetails = () => {
     },
   });
 
+  if (isError) {
+    const message = error?.response?.data?.message;
+    if (message) {
+      // console.log(error?.response?.data?.message);
+      toast.error(message);
+      navigate("/allArticles");
+    }
+  }
+
   const { mutateAsync } = useMutation({
     mutationFn: async () => {
       const { data } = await axiosSecure.patch(`/articleViewCount/${id}`);
@@ -40,15 +49,6 @@ const ArticlesDetails = () => {
   useEffect(() => {
     mutateAsync();
   }, [id]);
-
-  if (isError) {
-    const message = error?.response?.data?.message;
-    if (message) {
-      // console.log(error?.response?.data?.message);
-      toast.error(message);
-      navigate("/allArticles");
-    }
-  }
 
   if (isLoading) return <Loader></Loader>;
   return (

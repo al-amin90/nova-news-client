@@ -16,3 +16,9 @@
 .ant-modal-footer{
     display: none;
 }
+
+.css-13cymwt-control{
+    background-color: #101011 !important; 
+    color: white !important;
+    border: 1px dotted #5B5A5A !important;
+}

@@ -75,6 +75,14 @@ const AddArticles = ({ isAdd }) => {
       toast.success("Successful! Wait for the Admin response..");
       navigate("/myArticles");
     },
+    onError: (err) => {
+      const message = err?.response?.data?.message;
+      if (err?.response?.status === 404) {
+        console.log(err);
+        // console.log(error?.response?.data?.message);
+        toast.error(message);
+      }
+    },
   });
 
   // update article
