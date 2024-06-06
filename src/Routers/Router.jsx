@@ -20,11 +20,13 @@ import Subscription from "../Pages/Subscription/Subscription";
 import Payment from "../Pages/Payment/Payment";
 import ArticlesDetails from "../Pages/ArticlesDetails/ArticlesDetails";
 import Profile from "../Pages/Profile/Profile";
+import ErrorPage from "../Pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index: true,
