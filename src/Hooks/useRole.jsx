@@ -14,7 +14,6 @@ const useRole = () => {
       return data.isAdmin;
     },
   });
-  console.log(isAdmin);
 
   return [isAdmin, isLoading];
 };

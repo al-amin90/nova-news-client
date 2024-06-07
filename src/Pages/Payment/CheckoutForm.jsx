@@ -10,6 +10,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -17,6 +18,7 @@ const CheckoutForm = () => {
   const [clientSecret, setClientSecret] = useState();
   const axiosSecure = useAxiosSecure();
   const { user, subPrice } = useAuth();
+  const navigate = useNavigate();
 
   // make a user premium
 
@@ -109,6 +111,7 @@ const CheckoutForm = () => {
       };
       console.log("inside the useeffect", user?.email, subscriptionInfo);
       toast.success(`Successfull Your transactionId: ${paymentIntent.id}`);
+      navigate("/premiumArticles");
 
       try {
         await mutateAsync(subscriptionInfo);

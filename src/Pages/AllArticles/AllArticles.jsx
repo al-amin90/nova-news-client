@@ -8,12 +8,14 @@ import Loader from "../Shared/Loader";
 import ArticleCard from "../../Components/AllArticles/ArticleCard";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import useUserPremium from "../../Hooks/useUserPremium";
 
 const AllArticles = () => {
   const axiosPublic = useAxiosPublic();
   const [title, setTitle] = useState("");
   const [selectPublisher, setSelectPublisher] = useState("");
   const [tags, setTags] = useState("");
+  const [isUserPremium] = useUserPremium();
 
   const {
     register,
@@ -164,7 +166,11 @@ const AllArticles = () => {
         <div className="flex flex-col lg:flex-row mt-10 gap-7">
           <div className="grid lg:w-3/4 grid-cols-1 md:grid-cols-3 gap-6">
             {articles?.map((arti) => (
-              <ArticleCard key={arti?._id} article={arti}></ArticleCard>
+              <ArticleCard
+                isUserPremium={isUserPremium}
+                key={arti?._id}
+                article={arti}
+              ></ArticleCard>
             ))}
           </div>
           <div className="w-1/4">the 2nd part here</div>

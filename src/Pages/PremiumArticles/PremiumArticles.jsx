@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import BannerHead from "../../Components/Shared/BannerHead";
 import ArticleCard from "../../Components/AllArticles/ArticleCard";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../Shared/Loader";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { useLocation, useNavigate } from "react-router-dom";
+import useUserPremium from "../../Hooks/useUserPremium";
 
 const PremiumArticles = () => {
   const axiosSecure = useAxiosSecure();
+  const [isUserPremium] = useUserPremium();
+  const navigate = useNavigate();
 
   const {
     data: articles = [],
@@ -21,7 +25,7 @@ const PremiumArticles = () => {
     },
   });
 
-  console.log(articles);
+  if (!isUserPremium) return navigate("/");
   if (isLoading) return <Loader></Loader>;
   return (
     <div className="pb-28">

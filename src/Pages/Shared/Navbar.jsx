@@ -4,12 +4,23 @@ import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import useRole from "../../Hooks/useRole";
+import useUserPremium from "../../Hooks/useUserPremium";
 
 const Navbar = () => {
-  const { user, logOut } = useAuth();
+  const { user, loading, logOut } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [isAdmin, isLoading] = useRole();
+  const [isUserPremium, refetch] = useUserPremium();
+
+  // isUserPremium;
+
+  useEffect(() => {
+    console.log("call to check premuium render");
+
+    refetch();
+  }, [location]);
+  console.log(isUserPremium);
 
   const navLinks = (
     <div className="flex flex-col lg:flex-row items-center text-sm lg:gap-4 uppercase *:cursor-pointer font-semibold">
@@ -28,7 +39,7 @@ const Navbar = () => {
         {user && (
           <NavItem label={"My Articles"} address="/myArticles"></NavItem>
         )}
-        {user && (
+        {isUserPremium && (
           <NavItem
             label={"Premium Articles"}
             address="/premiumArticles"

@@ -4,7 +4,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import artibg from "../../assets/allArticle/premium.jpg";
 import { useNavigate } from "react-router-dom";
 
-const ArticleCard = ({ article }) => {
+const ArticleCard = ({ article, isUserPremium }) => {
   const navigate = useNavigate();
 
   return (
@@ -23,8 +23,9 @@ const ArticleCard = ({ article }) => {
           <div className=" hidden  duration-300 group-hover:flex absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 items-center justify-between pb-5">
             <div className="bg-black/30 animate-bounce overflow-hidden shadow-inner rounded-full px-2 py-2">
               <button
+                disabled={article?.isPremium && !isUserPremium}
                 onClick={() => navigate(`/articlesDetails/${article?._id}`)}
-                className="font-bold transform relative group-hover:translate-y-0 translate-y-full uppercase text-xs rounded-full py-4 px-4 bg-[#FF2400] transition-all shadow-md duration-1000 delay-1000 ease-in-out border border-[#FF664D] hover:bg-[#ff5537] text-white"
+                className="font-bold transform relative group-hover:translate-y-0 translate-y-full uppercase text-xs rounded-full py-4 px-4 bg-[#FF2400] transition-all disabled:cursor-not-allowed shadow-md duration-1000 delay-1000 ease-in-out border border-[#FF664D] hover:bg-[#ff5537] text-white"
               >
                 <FaArrowRightLong className="text-lg" />
               </button>
