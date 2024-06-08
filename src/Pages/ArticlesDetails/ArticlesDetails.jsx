@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Loader from "../Shared/Loader";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -7,11 +7,14 @@ import { Helmet } from "react-helmet-async";
 import { FaCalendarAlt, FaEye, FaRegUser } from "react-icons/fa";
 import BannerHead from "../../Components/Shared/BannerHead";
 import { toast } from "react-hot-toast";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const ArticlesDetails = () => {
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
   const { id } = useParams();
   const navigate = useNavigate();
+  const hasFetched = useRef(false);
 
   const {
     data: article = [],
@@ -37,8 +40,8 @@ const ArticlesDetails = () => {
   }
 
   const { mutateAsync } = useMutation({
-    mutationFn: async () => {
-      const { data } = await axiosSecure.patch(`/articleViewCount/${id}`);
+    mutationFn: async (ide) => {
+      const { data } = await axiosPublic.patch(`/articleViewCount/${ide}`);
       return data;
     },
     onSuccess: () => {
@@ -47,8 +50,12 @@ const ArticlesDetails = () => {
   });
 
   useEffect(() => {
-    mutateAsync();
-  }, [id]);
+    if (!hasFetched.current && id) {
+      console.log("called");
+      mutateAsync(id);
+      hasFetched.current = true;
+    }
+  }, [id, mutateAsync]);
 
   if (isLoading) return <Loader></Loader>;
   return (
