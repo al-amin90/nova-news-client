@@ -57,7 +57,7 @@ const ManageUsers = () => {
           <h2 className="text-lg font-medium text-gray-800 ">All Users</h2>
 
           <span className="px-3 py-1 text-xs text-[#FF5537] bg-[#ff553710]  rounded-full ">
-            {users?.length} Users
+            {count} Users
           </span>
         </div>
 

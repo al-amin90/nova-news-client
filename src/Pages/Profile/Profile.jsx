@@ -18,7 +18,7 @@ const Profile = () => {
         style={{
           backgroundImage: `url("https://i.ibb.co/qphhkLY/hao-wang-p-Vq6-Yhm-DPtk-unsplash.jpg")`,
         }}
-        className="bg-white border shadow-lg rounded-2xl w-3/5"
+        className="bg-white border shadow-lg rounded-2xl w-[90%] lg:w-3/5"
       >
         <div className="backdrop-blur-xl bg-white/10 rounded-2xl">
           <img
@@ -40,7 +40,7 @@ const Profile = () => {
             </p>
             <p className="mt-2 text-xl font-medium  ">User Id: {user.uid}</p>
             <div className="w-full p-2 mt-4 rounded-lg">
-              <div className="flex flex-wrap items-center justify-between text-sm  ">
+              <div className="flex flex-col md:flex-row space-y-4 flex-wrap items-center justify-between text-sm  ">
                 <p className="flex flex-col">
                   Name:---
                   <span className="font-bold  ">{user.displayName}</span>

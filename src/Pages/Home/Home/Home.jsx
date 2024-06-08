@@ -34,12 +34,12 @@ const Home = () => {
       <Plans></Plans>
       <Statistic></Statistic>
       <NewsLatter></NewsLatter>
-      {/* <div className="absolute z-50">
+      <div className="absolute z-50">
         <TakePremiumModal
           setIsOpen={setIsOpen}
           isOpen={isOpen}
         ></TakePremiumModal>
-      </div> */}
+      </div>
     </div>
   );
 };
