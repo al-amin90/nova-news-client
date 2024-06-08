@@ -6,19 +6,21 @@ import Statistic from "../Statistic/Statistic";
 import NewsLatter from "../NewsLatter/NewsLatter";
 import { useEffect, useState } from "react";
 import TakePremiumModal from "../../../Components/Modal/TakePremiumModal";
+import FeaturedNews from "../FeaturedNews/FeaturedNews";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setIsOpen(true);
+      if (!isOpen) {
+        setIsOpen(true);
+      }
     }, 10000);
 
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [isOpen]);
 
   return (
     <div>
@@ -28,15 +30,16 @@ const Home = () => {
 
       <Banner></Banner>
       <AllPublisher></AllPublisher>
+      <FeaturedNews></FeaturedNews>
       <Plans></Plans>
       <Statistic></Statistic>
       <NewsLatter></NewsLatter>
-      <div className="absolute">
+      {/* <div className="absolute z-50">
         <TakePremiumModal
           setIsOpen={setIsOpen}
           isOpen={isOpen}
         ></TakePremiumModal>
-      </div>
+      </div> */}
     </div>
   );
 };

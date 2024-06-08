@@ -43,7 +43,11 @@ const PremiumArticles = () => {
       <div className=" max-w-7xl w-[90%] mt-28 mx-auto gap-7">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {articles?.map((arti) => (
-            <ArticleCard key={arti?._id} article={arti}></ArticleCard>
+            <ArticleCard
+              isUserPremium={isUserPremium}
+              key={arti?._id}
+              article={arti}
+            ></ArticleCard>
           ))}
         </div>
       </div>

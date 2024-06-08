@@ -44,7 +44,7 @@ const TakePremiumModal = ({ setIsOpen, isOpen }) => {
               <DialogPanel className="w-full h-2/6 max-w-md transform overflow-hidden rounded-2xl bg-gradient-to-t backdrop-blur-xl border to-[#040404]/0 from-[#040404]/10  p-6 text-left align-middle z-50 relative text-white shadow-xl transition-all">
                 <DialogTitle
                   as="h3"
-                  className="text-5xl font-medium text-center leading-tight  text-white"
+                  className="text-4xl md:text-5xl font-medium text-center leading-tight  text-white"
                 >
                   Enjoy <br /> Our free trial <br /> month
                 </DialogTitle>

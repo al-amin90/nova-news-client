@@ -8,7 +8,6 @@ import useRole from "../../../Hooks/useRole";
 const UserDataRow = ({ user, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const [isAdmin, isLoading] = useRole();
-  console.log("i am admin", isAdmin);
 
   const { mutateAsync } = useMutation({
     mutationFn: async () => {
