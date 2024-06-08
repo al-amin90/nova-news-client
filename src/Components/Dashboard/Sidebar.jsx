@@ -79,7 +79,7 @@ const Sidebar = () => {
             <nav>
               {/* Statistics */}
               <MenuItem
-                label={"About"}
+                label={"Dashboard"}
                 address="/dashboard"
                 icon={FcAbout}
               ></MenuItem>

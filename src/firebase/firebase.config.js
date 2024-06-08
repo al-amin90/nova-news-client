@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAy424uXbjVDfhjdX-VwCmxHlgwBFfDT-I",
-  authDomain: "nova-news-c2549.firebaseapp.com",
-  projectId: "nova-news-c2549",
-  storageBucket: "nova-news-c2549.appspot.com",
-  messagingSenderId: "694283570805",
-  appId: "1:694283570805:web:75a91bee81ed11604eb23c",
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 
 // Initialize Firebase

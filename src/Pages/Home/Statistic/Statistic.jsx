@@ -21,7 +21,6 @@ const Statistic = () => {
     },
   });
 
-  console.log(users);
   if (isLoading) return <Loader></Loader>;
   return (
     <div className=" max-w-7xl w-[90%] mt-24 mx-auto">

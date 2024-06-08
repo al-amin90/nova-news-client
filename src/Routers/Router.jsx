@@ -21,6 +21,7 @@ import Payment from "../Pages/Payment/Payment";
 import ArticlesDetails from "../Pages/ArticlesDetails/ArticlesDetails";
 import Profile from "../Pages/Profile/Profile";
 import ErrorPage from "../Pages/ErrorPage";
+import DahbordTrue from "../Pages/Dashboard/DahbordTrue";
 
 const router = createBrowserRouter([
   {
@@ -123,7 +124,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <p>About</p>,
+        element: <DahbordTrue></DahbordTrue>,
       },
       {
         path: "allusers",

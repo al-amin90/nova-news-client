@@ -112,7 +112,7 @@ const ManageArticles = () => {
       <div className="flex items-center gap-x-3">
         <h2 className="text-lg font-medium text-gray-800 ">All Articles</h2>
 
-        <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ">
+        <span className="px-3 py-1 text-xs text-[#FF5537] bg-[#ff553710]  rounded-full ">
           {allArticles?.length} Articles
         </span>
       </div>

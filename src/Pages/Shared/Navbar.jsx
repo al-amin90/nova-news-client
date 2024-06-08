@@ -16,8 +16,6 @@ const Navbar = () => {
   // isUserPremium;
 
   useEffect(() => {
-    console.log("call to check premuium render");
-
     refetch();
   }, [location]);
   console.log(isUserPremium);

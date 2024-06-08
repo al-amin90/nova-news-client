@@ -28,7 +28,16 @@ const ManageUsers = () => {
         <Helmet>
           <title> novaNews || All Users</title>
         </Helmet>
-        <div className="py-8">
+
+        <div className="flex items-center relative -left-4 pt-12 gap-x-3">
+          <h2 className="text-lg font-medium text-gray-800 ">All Users</h2>
+
+          <span className="px-3 py-1 text-xs text-[#FF5537] bg-[#ff553710]  rounded-full ">
+            {users?.length} Users
+          </span>
+        </div>
+
+        <div className="pb-8">
           <div className="-mx-4 sm:-mx-8 px-4 py-4 overflow-x-auto">
             <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
               <table className="min-w-full leading-normal">
