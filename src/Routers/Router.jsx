@@ -12,9 +12,7 @@ import AllArticles from "../Pages/AllArticles/AllArticles";
 import ManageArticles from "../Pages/Dashboard/ManageArticles";
 import PremiumArticles from "../Pages/PremiumArticles/PremiumArticles";
 import MyArticles from "../Pages/MyArticles/MyArticles";
-import useAxiosSecure from "../Hooks/useAxiosSecure";
-import axios from "axios";
-import { baseURL } from "../api/utlils";
+import { axiosSecuree } from "../api/utlils";
 import AddPublisher from "../Pages/Dashboard/AddPublisher";
 import Subscription from "../Pages/Subscription/Subscription";
 import Payment from "../Pages/Payment/Payment";
@@ -48,7 +46,7 @@ const router = createBrowserRouter([
             <AddArticles isAdd={false} />
           </PrivateRouter>
         ),
-        loader: ({ params }) => axios.get(`${baseURL}/article/${params.id}`),
+        loader: ({ params }) => axiosSecuree.get(`/article/${params.id}`),
       },
       {
         path: "/allArticles",

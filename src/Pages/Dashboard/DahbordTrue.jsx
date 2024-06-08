@@ -2,7 +2,6 @@ import { Chart } from "react-google-charts";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Loader from "../Shared/Loader";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import AnimationChart from "../../Components/Dashboard/AnimationChart";
 import RegionChart from "../../Components/Dashboard/RegionChart";
 const data = [
@@ -29,7 +28,6 @@ const DahbordTrue = () => {
       return [["Publisher", "Publisher Articles"], ...publisherCount];
     },
   });
-  console.log(allPublisherCount);
 
   if (isLoading) return <Loader></Loader>;
   return (

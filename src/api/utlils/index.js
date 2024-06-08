@@ -2,7 +2,7 @@ import axios from "axios";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 const axiosPublic = useAxiosPublic();
 
-export const baseURL = "https://nova-news-server.vercel.app";
+export const baseURL = "http://localhost:5000";
 
 const image_hoisting_key = import.meta.env.VITE_IMAGE_HOISTING_KEY;
 const image_hoisting_api = `https://api.imgbb.com/1/upload?key=${image_hoisting_key}`;
@@ -35,3 +35,21 @@ export const saveUser = async (currentUser) => {
     console.log(err);
   }
 };
+
+// axiosSecuree------------------
+export const axiosSecuree = axios.create({
+  baseURL: "http://localhost:5000",
+});
+
+axiosSecuree.interceptors.request.use(
+  function (config) {
+    const token = localStorage.getItem("access-token");
+    if (token) {
+      config.headers.authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
