@@ -4,6 +4,7 @@ import BannerHead from "../../Components/Shared/BannerHead";
 import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import "./subscription.css";
 
 const Subscription = () => {
   const { subPrice, setSubPrice } = useAuth();

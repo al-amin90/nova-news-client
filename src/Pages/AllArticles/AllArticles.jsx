@@ -9,6 +9,8 @@ import ArticleCard from "../../Components/AllArticles/ArticleCard";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useUserPremium from "../../Hooks/useUserPremium";
+import server from "../../assets/allArticle/cyber.jpg";
+import news from "../../assets/allArticle/newss.png";
 
 const AllArticles = () => {
   const axiosPublic = useAxiosPublic();
@@ -102,7 +104,6 @@ const AllArticles = () => {
   const handleTags = (value) => {
     setTags(value);
   };
-  console.log(tags);
 
   if (isLoading) return <Loader></Loader>;
   return (
@@ -173,7 +174,14 @@ const AllArticles = () => {
               ></ArticleCard>
             ))}
           </div>
-          <div className="w-1/4">the 2nd part here</div>
+          <div className="w-1/4">
+            <div>
+              <img src={server} className="w-full rounded-md" alt="" />
+            </div>
+            <div>
+              <img src={news} className="w-full mt-6 rounded-md" alt="" />
+            </div>
+          </div>
         </div>
       </div>
     </div>

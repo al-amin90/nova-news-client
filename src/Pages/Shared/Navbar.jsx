@@ -18,7 +18,6 @@ const Navbar = () => {
   useEffect(() => {
     refetch();
   }, [location]);
-  console.log(isUserPremium);
 
   const navLinks = (
     <div className="flex flex-col lg:flex-row items-center text-sm lg:gap-4 uppercase *:cursor-pointer font-semibold">
