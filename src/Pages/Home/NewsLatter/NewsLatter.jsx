@@ -7,7 +7,7 @@ const NewsLatter = () => {
     <div className="relative -bottom-24">
       <img className="w-full relative z-20 -bottom-16" src={latter} alt="" />
       <div className=" relative md:h-[100vh] h-[500px]">
-        <div className="h-[100vh] md:h-[100vh] object-left-bottom" style={{}}>
+        <div className="h-[100vh] md:h-[100vh] object-left-bottom">
           <img
             className="object-cover w-full object-left-bottom  opacity-100 md:h-[100vh] h-[500px]"
             src={news}
