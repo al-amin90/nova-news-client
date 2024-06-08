@@ -34,7 +34,7 @@ const DahbordTrue = () => {
   if (isLoading) return <Loader></Loader>;
   return (
     <div className="relative">
-      <h3 className="capitalize text-center md:top-4 left-6  z-10 absolute font-semibold text-xl">
+      <h3 className="capitalize  mt-5 ml-4 font-semibold text-xl">
         the percentage of{" "}
         <span className="text-[#FF5537]">Publication Articles...</span>
       </h3>
