@@ -16,7 +16,7 @@ const Profile = () => {
       </Helmet>
       <div
         style={{
-          backgroundImage: `url("https://i.ibb.co/qphhkLY/hao-wang-p-Vq6-Yhm-DPtk-unsplash.jpg")`,
+          backgroundImage: `url("https://i.ibb.co/H4qysVv/hao-wang-p-Vq6-Yhm-DPtk-unsplash.jpg")`,
         }}
         className="bg-white border shadow-lg rounded-2xl w-[90%] lg:w-3/5"
       >

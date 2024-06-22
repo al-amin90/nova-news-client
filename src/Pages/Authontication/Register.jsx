@@ -35,7 +35,12 @@ const Register = () => {
       createUser(data.email, data.password)
         .then((result) => {
           updateUserProfile(data.name, image_url).then(() => {
-            setUser({ ...user, displayName: data.name, photoURL: image_url });
+            setUser({
+              ...user,
+              email: data.email,
+              displayName: data.name,
+              photoURL: image_url,
+            });
             saveUser({
               email: data.email,
               displayName: data.name,

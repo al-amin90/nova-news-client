@@ -156,7 +156,7 @@ const AddArticles = ({ isAdd }) => {
       {/* top banner component */}
       <BannerHead
         label={`${isAdd ? "Add" : "Update"} Articles`}
-        image={"https://i.ibb.co/80dQ7Zz/typify-demo-software-4.jpg"}
+        image={"https://i.ibb.co/8c4jBN0/typify-demo-software-4.jpg"}
       ></BannerHead>
 
       {/* form add articles */}

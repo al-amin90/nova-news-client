@@ -37,7 +37,7 @@ const Subscription = () => {
       {/* top banner component */}
       <BannerHead
         label={"Subscription"}
-        image={"https://i.ibb.co/tzLwh36/planet-1348079-1280.jpg"}
+        image={"https://i.ibb.co/Dp7bqGy/planet-1348079-1280.jpg"}
       ></BannerHead>
 
       <div className="max-w-7xl mt-10 w-[90%] lg:w-[60%] mx-auto">

@@ -36,7 +36,7 @@ const PremiumArticles = () => {
       {/* top banner component */}
       <BannerHead
         label={"Premium Articles"}
-        image={"https://i.ibb.co/4P2SbNv/typify-demo-entertainment5.jpg"}
+        image={"https://i.ibb.co/wpnstK5/typify-demo-entertainment5.jpg"}
       ></BannerHead>
 
       {/* cards */}

@@ -73,7 +73,7 @@ const MyArticles = () => {
       <BannerHead
         label={"My Articles"}
         image={
-          "https://i.ibb.co/0jqMbc5/hunters-race-MYbh-N8-Kaa-Ec-unsplash.jpg"
+          "https://i.ibb.co/YTVtsGN/hunters-race-MYbh-N8-Kaa-Ec-unsplash.jpg"
         }
       ></BannerHead>
 

@@ -115,7 +115,7 @@ const AllArticles = () => {
       {/* top banner component */}
       <BannerHead
         label={"All Articles"}
-        image={"https://i.ibb.co/SwMHqyL/allarticles.jpg"}
+        image={"https://i.ibb.co/tJBVt12/allarticles.jpg"}
       ></BannerHead>
 
       {/* cards */}
