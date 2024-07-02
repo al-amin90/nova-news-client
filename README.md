@@ -4,7 +4,7 @@ Welcome ! This platform is designed to help users explore Tech News from around 
 
 ## Live Site Link-
 
-https://journey-joy-client.web.app/
+https://nova-news-c2549.web.app/
 
 
 ## Features and Characteristics
