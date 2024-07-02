@@ -1,6 +1,6 @@
 # novaNews Project
 
-Welcome ! This platform is designed to help users explore Tech News from around the world. Users can choose and buy a subscription for a set period, after which they revert to normal user status. All data is securely stored in MongoDB, dynamically filtered by publisher and tags. Normal users cannot access premium features due to secure, protected client and server-side APIs.
+Welcome ! This platform is designed to help users explore Tech News from around the world.
 
 ## Live Site Link-
 
