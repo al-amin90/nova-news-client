@@ -1,4 +1,4 @@
-# novaNews Project Check Dashboard
+# novaNews Project
 
 Welcome ! This platform is designed to help users explore Tech News from around the world.
 
