@@ -23,7 +23,7 @@ const Profile = () => {
         <div className="backdrop-blur-xl bg-white/10 rounded-2xl">
           <img
             alt="profile"
-            src="https://i.ibb.co/qphhkLY/hao-wang-p-Vq6-Yhm-DPtk-unsplash.jpg"
+            src="https://i.ibb.co/H4qysVv/hao-wang-p-Vq6-Yhm-DPtk-unsplash.jpg"
             className="w-full mb-4 object-cover rounded-t-lg h-48"
           />
           <div className="flex flex-col text-white items-center justify-center p-4 -mt-20">

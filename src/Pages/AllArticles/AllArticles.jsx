@@ -58,32 +58,32 @@ const AllArticles = () => {
     {
       value: "#culture",
       label: "Culture",
-      image: "https://i.ibb.co/MsgB2BS/typify-demo-event-3-150x150.jpg",
+      image: "https://i.ibb.co/0rmqF6N/typify-demo-culture-5-150x150.jpg",
     },
     {
       value: "#entertainment",
       label: "Entertainment",
-      image: "https://i.ibb.co/j9NZkr3/typify-demo-entertainment4.jpg",
+      image: "https://i.ibb.co/k43RgY6/typify-demo-entertainment4.jpg",
     },
     {
       value: "#fashion",
       label: "Fashion",
-      image: "https://i.ibb.co/mGW3ksr/typify-demo-fashion-6-150x150.jpg",
+      image: "https://i.ibb.co/Fzy5FbS/typify-demo-fashion-6-150x150.jpg",
     },
     {
       value: "#lifestyle",
       label: "Lifestyle",
-      image: "https://i.ibb.co/8D6LLnG/typify-demo-culture-5-150x150.jpg",
+      image: "https://i.ibb.co/nQdn7bx/typify-demo-event-3-150x150.jpg",
     },
     {
       value: "#technology",
       label: "Technology",
-      image: "https://i.ibb.co/NThSt20/typify-demo-technology-8-150x150.jpg",
+      image: "https://i.ibb.co/pdw0G5m/typify-demo-technology-8-150x150.jpg",
     },
     {
       value: "#travel",
       label: "Travel",
-      image: "https://i.ibb.co/m0cQZqX/typify-demo-travel-9-150x150.jpg",
+      image: "https://i.ibb.co/WtgBWph/grand-canyon-1.jpg",
     },
   ];
 
